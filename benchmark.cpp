@@ -72,7 +72,7 @@ void benchmark::test2() {
 
 void benchmark::dec6_test() {
   int decimals = 6;
-  int base = 16;
+  size_t base = 16;
   std::string pow = "6";
 
   std::string sbase = "16";  // todo: convert from int base
@@ -106,17 +106,24 @@ void benchmark::dec6_test() {
 
   std::cout << "pi_mul_start 2 = " << pi_mul_start << '\n';
 
+  BhimInteger quotient, r2w, digit;
+
   //----
 
-  auto r2 = pi_mul_start / bbase;
+  bool finished = false;
+  while (!finished) {
+    quotient = pi_mul_start / bbase;
+    // cout << "r2 = " << quotient << '\n';
+    r2w = quotient * bbase;
+    // cout << "r2w = " << r2w << '\n';
+    digit = pi_mul_start - r2w;
+    cout << "digit *********** = " << digit << '\n';
+    pi_mul_start = quotient;
 
-  cout << "r2 = " << r2 << '\n';
+    if (quotient == 0) {
+      finished = true;
+    }
+  }
 
-  auto r2w = r2 * bbase;
-
-  cout << "r2w = " << r2w << '\n';
-
-  auto digit = pi_mul_start - r2w;
-
-  cout << "digit = " << digit << '\n';
+  ///
 }
