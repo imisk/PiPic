@@ -76,6 +76,7 @@ void benchmark::dec6_test() {
   std::string pow = "6";
 
   std::string sbase = "16";  // todo: convert from int base
+  BhimInteger bbase(sbase);
 
   BhimInteger result;
 
@@ -104,4 +105,18 @@ void benchmark::dec6_test() {
   pi_mul_start.removeDigitsAfterIdx(remainingDigits);
 
   std::cout << "pi_mul_start 2 = " << pi_mul_start << '\n';
+
+  //----
+
+  auto r2 = pi_mul_start / bbase;
+
+  cout << "r2 = " << r2 << '\n';
+
+  auto r2w = r2 * bbase;
+
+  cout << "r2w = " << r2w << '\n';
+
+  auto digit = pi_mul_start - r2w;
+
+  cout << "digit = " << digit << '\n';
 }
