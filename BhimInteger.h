@@ -34,6 +34,10 @@ class BhimInteger {
   string str;
 
  public:
+  void removeDigitsAfterIdx(size_t idx) {
+    size_t d = str.length() - idx;
+    str.erase(str.length() - d);
+  }
   BhimInteger() { str = "0"; }
 
   BhimInteger(string s) {
@@ -43,6 +47,8 @@ class BhimInteger {
     }
     str = s;
   }
+
+  size_t getDigitCount() { return str.size(); }
 
   BhimInteger(int n) {
     ostringstream convertstr;

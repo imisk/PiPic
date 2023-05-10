@@ -69,3 +69,39 @@ void benchmark::test2() {
 
   std::cout << "result = " << result << '\n';
 }
+
+void benchmark::dec6_test() {
+  int decimals = 6;
+  int base = 16;
+  std::string pow = "6";
+
+  std::string sbase = "16";  // todo: convert from int base
+
+  BhimInteger result;
+
+  result = result.powBhimInteger(sbase, pow);
+
+  // todo test loop this vs powBhimInteger
+
+  //  for (int curPow = 0; curPow < pow - 1; ++curPow) {
+  //    if (curPow % 100 == 0) {
+  //      std::cout << "cp = " << curPow << '\n';
+  //    }
+  //  }
+
+  std::cout << "start result = " << result << '\n';
+
+  BhimInteger pi("31415926535897932");
+
+  auto pi_mul_start = pi * result;
+
+  std::cout << "pi_mul_start = " << pi_mul_start << '\n';
+
+  size_t curLength = pi_mul_start.getDigitCount();
+
+  size_t remainingDigits = curLength - base;
+
+  pi_mul_start.removeDigitsAfterIdx(remainingDigits);
+
+  std::cout << "pi_mul_start 2 = " << pi_mul_start << '\n';
+}

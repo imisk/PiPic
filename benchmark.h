@@ -10,6 +10,8 @@ class benchmark {
   void test1();
 
   void test2();
+
+  void dec6_test();
 };
 
 #endif  // BENCHMARK_H
