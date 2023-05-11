@@ -21,9 +21,9 @@ void benchmark::test1() {
 
   for (int curPow = 0; curPow < pow; ++curPow) {
     result *= base;
-    if (curPow % 100 == 0) {
-      std::cout << "cp = " << curPow << '\n';
-    }
+    //    if (curPow % 100 == 0) {
+    //      std::cout << "cp = " << curPow << '\n';
+    //    }
   }
 
   auto end = std::chrono::high_resolution_clock::now();
@@ -33,7 +33,7 @@ void benchmark::test1() {
           .count();
 
   // Print the elapsed time in milliseconds
-  std::cout << "Time taken by longFunc(): " << duration << " milliseconds"
+  std::cout << "Time taken by test1(): " << duration << " milliseconds"
             << std::endl;
 
   std::cout << "result = " << result << '\n';
@@ -52,9 +52,9 @@ void benchmark::test2() {
 
   for (int curPow = 0; curPow < pow; ++curPow) {
     result *= base;
-    if (curPow % 100 == 0) {
-      std::cout << "cp = " << curPow << '\n';
-    }
+    //    if (curPow % 100 == 0) {
+    //      std::cout << "cp = " << curPow << '\n';
+    //    }
   }
 
   auto end = std::chrono::high_resolution_clock::now();
@@ -64,14 +64,13 @@ void benchmark::test2() {
           .count();
 
   // Print the elapsed time in milliseconds
-  std::cout << "Time taken by longFunc(): " << duration << " milliseconds"
+  std::cout << "Time taken by test2(): " << duration << " milliseconds"
             << std::endl;
 
   std::cout << "result = " << result << '\n';
 }
 
 void benchmark::dec6_test() {
-  int decimals = 6;
   size_t base = 16;
   std::string pow = "6";
 
@@ -126,4 +125,30 @@ void benchmark::dec6_test() {
   }
 
   ///
+}
+
+void benchmark::test3() {
+  size_t base = 4;
+  std::string pow = "5000";
+
+  std::string sbase = "4";  // todo: convert from int base
+  BhimInteger bbase(sbase);
+
+  BhimInteger result;
+
+  auto start = std::chrono::high_resolution_clock::now();
+
+  result = result.powBhimInteger(sbase, pow);
+
+  auto end = std::chrono::high_resolution_clock::now();
+
+  auto duration =
+      std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
+          .count();
+
+  // Print the elapsed time in milliseconds
+  std::cout << "Time taken by test3(): " << duration << " milliseconds"
+            << std::endl;
+
+  std::cout << "result = " << result << '\n';
 }
