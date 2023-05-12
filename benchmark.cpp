@@ -44,13 +44,13 @@ void benchmark::test2() {
 
   auto start = std::chrono::high_resolution_clock::now();
 
-  int pow = 5000;
+  int pow = 20000;
 
   BhimInteger base("4");
 
   BhimInteger result("4");
 
-  for (int curPow = 0; curPow < pow; ++curPow) {
+  for (int curPow = 0; curPow < pow - 1; ++curPow) {
     result *= base;
     //    if (curPow % 100 == 0) {
     //      std::cout << "cp = " << curPow << '\n';
@@ -72,7 +72,7 @@ void benchmark::test2() {
 
 void benchmark::dec6_test() {
   size_t base = 16;
-  std::string pow = "6";
+  std::string pow = "20";  // pow must be <= pi.getDigitCount()
 
   std::string sbase = "16";  // todo: convert from int base
   BhimInteger bbase(sbase);
@@ -91,7 +91,11 @@ void benchmark::dec6_test() {
 
   std::cout << "start result = " << result << '\n';
 
-  BhimInteger pi("31415926535897932");
+  BhimInteger pi(
+      "314159265358979323846264338327950288419716939937510582097494459230781640"
+      "62862089986280348253421170679");
+
+  size_t digitsToRemove = pi.getDigitCount() - 1;
 
   auto pi_mul_start = pi * result;
 
@@ -99,7 +103,7 @@ void benchmark::dec6_test() {
 
   size_t curLength = pi_mul_start.getDigitCount();
 
-  size_t remainingDigits = curLength - base;
+  size_t remainingDigits = curLength - digitsToRemove;
 
   pi_mul_start.removeDigitsAfterIdx(remainingDigits);
 
@@ -129,7 +133,7 @@ void benchmark::dec6_test() {
 
 void benchmark::test3() {
   size_t base = 4;
-  std::string pow = "5000";
+  std::string pow = "20000";
 
   std::string sbase = "4";  // todo: convert from int base
   BhimInteger bbase(sbase);
