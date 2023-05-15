@@ -4,6 +4,7 @@
 #include <chrono>
 #include "BhimInteger.h"
 #include "bigint.h"
+#include "utility.h"
 
 benchmark::benchmark() {}
 
@@ -72,7 +73,8 @@ void benchmark::test2() {
 
 void benchmark::dec6_test() {
   size_t base = 16;
-  std::string pow = "20";  // pow must be <= pi.getDigitCount()
+  // pow is the digit count we will be calculating up to
+  std::string pow = "150";  // pow must be <= pi.getDigitCount()
 
   std::string sbase = "16";  // todo: convert from int base
   BhimInteger bbase(sbase);
@@ -81,7 +83,7 @@ void benchmark::dec6_test() {
 
   result = result.powBhimInteger(sbase, pow);
 
-  // todo test loop this vs powBhimInteger
+  // this loop is slightly faster than powBhimInteger, we should use it
 
   //  for (int curPow = 0; curPow < pow - 1; ++curPow) {
   //    if (curPow % 100 == 0) {
@@ -93,7 +95,21 @@ void benchmark::dec6_test() {
 
   BhimInteger pi(
       "314159265358979323846264338327950288419716939937510582097494459230781640"
-      "62862089986280348253421170679");
+      "628620899862803482534211706798214808651328230664709384460955058223172535"
+      "940812848111745028410270193852110555964462294895493038196442881097566593"
+      "344612847564823378678316527120190914564856692346034861045432664821339360"
+      "726024914127372458700660631558817488152092096282925409171536436789259036"
+      "001133053054882046652138414695194151160943305727036575959195309218611738"
+      "193261179310511854807446237996274956735188575272489122793818301194912983"
+      "367336244065664308602139494639522473719070217986094370277053921717629317"
+      "675238467481846766940513200056812714526356082778577134275778960917363717"
+      "872146844090122495343014654958537105079227968925892354201995611212902196"
+      "086403441815981362977477130996051870721134999999837297804995105973173281"
+      "609631859502445945534690830264252230825334468503526193118817101000313783"
+      "875288658753320838142061717766914730359825349042875546873115956286388235"
+      "37875937519577818577805321712268066130019278766111959092164201989");
+
+  // todo : check that pow is <= pi.getDigitCount()
 
   size_t digitsToRemove = pi.getDigitCount() - 1;
 
@@ -114,19 +130,35 @@ void benchmark::dec6_test() {
   //----
 
   bool finished = false;
+
+  std::cout << "\n\nDIGITS OUTPUT: \n";
+
+  std::string resultReversed = "";
+
   while (!finished) {
     quotient = pi_mul_start / bbase;
     // cout << "r2 = " << quotient << '\n';
     r2w = quotient * bbase;
     // cout << "r2w = " << r2w << '\n';
     digit = pi_mul_start - r2w;
-    cout << "digit *********** = " << digit << '\n';
+    // cout << "digit *********** = " << digit << '\n';
+
+    char digitChar = decimalToHex(digit.to_int());
+
+    resultReversed.push_back(digitChar);
+
     pi_mul_start = quotient;
 
     if (quotient == 0) {
       finished = true;
     }
   }
+
+  std::cout << "reversed = " << resultReversed << "\n\n";
+  reverseString(resultReversed);
+  std::cout << "normal = " << resultReversed << '\n';
+
+  std::cout << '\n';
 
   ///
 }

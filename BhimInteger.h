@@ -40,6 +40,18 @@ class BhimInteger {
   }
   BhimInteger() { str = "0"; }
 
+  int to_int() {
+    int ret = -1;
+
+    try {
+      ret = std::stoi(str);
+    } catch (...) {
+      std::cout << "Warning: failed conversion BhimInteger to int\n";
+    }
+
+    return ret;
+  }
+
   BhimInteger(string s) {
     if (!isInputCorrect(s)) {
       cerr << "Invalid Input.. Please Use Valid BhimInteger" << endl;

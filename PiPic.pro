@@ -12,14 +12,16 @@ SOURCES += \
     benchmark.cpp \
     core.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    utility.cpp
 
 HEADERS += \
   bigint.h \
   BhimInteger.h \
     benchmark.h \
     core.h \
-    mainwindow.h
+    mainwindow.h \
+  utility.h
 
 FORMS += \
     mainwindow.ui
