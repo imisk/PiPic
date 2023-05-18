@@ -779,6 +779,14 @@ class BhimInteger {
     BhimInteger N2(s1);
     return N2;
   }
+
+  // Digits are always base 10, because BhimInteger is always base 10
+  void GetDigits(std::vector<uint8_t>& digits) {
+    for (auto& c : str) {
+      uint8_t n = static_cast<uint8_t>(c - '0');
+      digits.push_back(n);
+    }
+  }
 };
 
 #endif  // BhimInteger_H_INCLUDED

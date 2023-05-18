@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     benchmark.cpp \
     core.cpp \
+    datamanager.cpp \
     main.cpp \
     mainwindow.cpp \
     utility.cpp
@@ -20,6 +21,7 @@ HEADERS += \
   BhimInteger.h \
     benchmark.h \
     core.h \
+  datamanager.h \
     mainwindow.h \
   utility.h
 

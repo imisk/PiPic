@@ -72,16 +72,18 @@ void benchmark::test2() {
 }
 
 void benchmark::dec6_test() {
-  size_t base = 16;
-  // pow is the digit count we will be calculating up to
-  std::string pow = "150";  // pow must be <= pi.getDigitCount()
+  // size_t base = 16;
+  //  pow is the digit count we will be calculating up to
+  //  std::string pow = "150";  // pow must be <= pi.getDigitCount()
 
-  std::string sbase = "16";  // todo: convert from int base
+  BhimInteger bpow("150");
+
+  std::string sbase = "16";
   BhimInteger bbase(sbase);
 
   BhimInteger result;
 
-  result = result.powBhimInteger(sbase, pow);
+  result = result.powBhimInteger(sbase, bpow);
 
   // this loop is slightly faster than powBhimInteger, we should use it
 
@@ -109,7 +111,10 @@ void benchmark::dec6_test() {
       "875288658753320838142061717766914730359825349042875546873115956286388235"
       "37875937519577818577805321712268066130019278766111959092164201989");
 
-  // todo : check that pow is <= pi.getDigitCount()
+  if (static_cast<size_t>(bpow.to_int()) > pi.getDigitCount() - 1) {
+    std::cout << "Error : pow > pi digit count \n";
+    return;
+  }
 
   size_t digitsToRemove = pi.getDigitCount() - 1;
 
