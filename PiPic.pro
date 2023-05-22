@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     benchmark.cpp \
+    bhimutils.cpp \
     core.cpp \
     datamanager.cpp \
     main.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     utility.cpp
 
 HEADERS += \
+  bhimutils.h \
   bigint.h \
   BhimInteger.h \
     benchmark.h \

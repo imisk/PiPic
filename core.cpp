@@ -9,7 +9,9 @@ void core::benchmark_test() {
   // bench.test1();
   // bench.test2();
 
-  bench.dec6_test();
+  // bench.dec6_test();
 
   // bench.test3();
+
+  bench.testRW();
 }

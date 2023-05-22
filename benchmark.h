@@ -14,6 +14,8 @@ class benchmark {
   void dec6_test();
 
   void test3();
+
+  void testRW();
 };
 
 #endif  // BENCHMARK_H
