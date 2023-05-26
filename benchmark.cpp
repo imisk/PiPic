@@ -170,7 +170,6 @@ void benchmark::dec6_test() {
 }
 
 void benchmark::test3() {
-  size_t base = 4;
   std::string pow = "20000";
 
   std::string sbase = "4";  // todo: convert from int base

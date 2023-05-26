@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "bhimutils.h"
+#include "pipiccommon.h"
 
 datamanager::datamanager() {}
 
@@ -27,7 +28,7 @@ void datamanager::Write_Value(std::string& fileName, BhimInteger val) {
     }
 
   } else {
-    // todo throw error
+    throw PiPicException(PiPicError::CannotCreateFile);
   }
 
   saveFile.close();
@@ -57,7 +58,7 @@ void datamanager::Read_Value(string& fileName, BhimInteger& returnVal) {
     returnVal = to_BhimInteger(digitVals);
 
   } else {
-    // todo throw error
+    throw PiPicException(PiPicError::CannotLoadFile);
   }
 
   readFile.close();

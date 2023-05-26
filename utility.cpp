@@ -13,8 +13,8 @@ char decimalToHex(int decimal) {
 }
 
 void reverseString(std::string& str) {
-  int start = 0;
-  int end = str.length() - 1;
+  size_t start = 0;
+  size_t end = str.length() - 1;
   while (start < end) {
     std::swap(str[start], str[end]);
     start++;

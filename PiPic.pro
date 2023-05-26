@@ -25,6 +25,7 @@ HEADERS += \
     core.h \
   datamanager.h \
     mainwindow.h \
+  pipiccommon.h \
   utility.h
 
 FORMS += \

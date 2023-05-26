@@ -82,6 +82,8 @@ class BhimInteger {
     str = N2.str;
   }
 
+  BhimInteger& operator=(const BhimInteger& other) = default;
+
   // Input Validator
   bool isInputCorrect(string s) {
     if (s[0] == '-')
