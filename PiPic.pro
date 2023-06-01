@@ -13,6 +13,7 @@ SOURCES += \
     bhimutils.cpp \
     core.cpp \
     datamanager.cpp \
+    error_message_box_util.cpp \
     main.cpp \
     mainwindow.cpp \
     utility.cpp
@@ -24,6 +25,7 @@ HEADERS += \
     benchmark.h \
     core.h \
   datamanager.h \
+  error_message_box_util.h \
     mainwindow.h \
   pipiccommon.h \
   utility.h

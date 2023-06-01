@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <iostream>
+#include "error_message_box_util.h"
 #include "pipiccommon.h"
 #include "ui_mainwindow.h"
 
@@ -15,11 +16,9 @@ MainWindow::~MainWindow() {
 void MainWindow::on_btn_Test_clicked() {
   try {
     mainCore.benchmark_test();
-  } catch (PiPicError& err) {
-    std::cout << "PiPicError : " << static_cast<int>(err) << '\n';
-  } catch (std::exception& ex) {
-    std::cout << "Exception : " << ex.what() << '\n';
+  } catch (PiPicException& err) {
+    HandleErrorMessage(err);
   } catch (...) {
-    std::cout << "General exception \n";
+    HandleGeneralError();
   }
 }
