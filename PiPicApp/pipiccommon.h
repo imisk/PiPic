@@ -7,6 +7,7 @@ enum class PiPicError {
   OK = 0,
   CannotCreateFile = 1,
   CannotLoadFile = 2,
+  BadFileName = 3
 };
 
 static std::string exceptionTxt;
@@ -40,6 +41,9 @@ class PiPicException : public std::exception {
         break;
       case PiPicError::CannotLoadFile:
         msg1 = "Could not load file \n";
+        break;
+      case PiPicError::BadFileName:
+        msg1 = "Bad file name \n";
         break;
     }
 

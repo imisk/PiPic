@@ -9,6 +9,9 @@ datamanager::datamanager() {}
 void datamanager::Write_Value(std::string& fileName, BhimInteger val) {
   std::vector<uint8_t> digitVals;
 
+  if (fileName.size() == 0)
+    throw PiPicException(PiPicError::BadFileName);
+
   std::string fullPath = fileName;
 
   val.GetDigits(digitVals);
@@ -36,6 +39,10 @@ void datamanager::Write_Value(std::string& fileName, BhimInteger val) {
 
 void datamanager::Read_Value(string& fileName, BhimInteger& returnVal) {
   std::string fullPath = fileName;
+
+  if (fileName.size() == 0)
+    throw PiPicException(PiPicError::BadFileName);
+
   auto readFile =
       std::fstream(fullPath, std::ios::binary | std::ios::out | std::ios::in);
 
