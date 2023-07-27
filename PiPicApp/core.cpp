@@ -13,5 +13,7 @@ void core::benchmark_test() {
 
   // bench.test3();
 
-  bench.testRW();
+  // bench.testRW();
+
+  bench.test4();
 }

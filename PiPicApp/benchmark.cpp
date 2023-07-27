@@ -194,6 +194,31 @@ void benchmark::test3() {
   std::cout << "result = " << result << '\n';
 }
 
+void benchmark::test3b() {
+  std::string pow = "30000";
+
+  std::string sbase = "4";  // todo: convert from int base
+  BhimInteger bbase(sbase);
+
+  BhimInteger result;
+
+  auto start = std::chrono::high_resolution_clock::now();
+
+  result = result.powBhimInteger(sbase, pow);
+
+  auto end = std::chrono::high_resolution_clock::now();
+
+  auto duration =
+      std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
+          .count();
+
+  // Print the elapsed time in milliseconds
+  std::cout << "Time taken by test3b(): " << duration << " milliseconds"
+            << std::endl;
+
+  std::cout << "result = " << result << '\n';
+}
+
 void benchmark::testRW() {
   BhimInteger pi(
       "314159265358979323846264338327950288419716939937510582097494459230781640"
@@ -221,4 +246,8 @@ void benchmark::testRW() {
   dm.Read_Value(fn, pr);
 
   std::cout << "pr = " << pr << '\n';
+}
+
+void benchmark::test4() {
+  std::cout << "Testing cout output after update \n";
 }

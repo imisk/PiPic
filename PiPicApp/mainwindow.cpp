@@ -16,9 +16,13 @@ MainWindow::~MainWindow() {
 void MainWindow::on_btn_Test_clicked() {
   try {
     mainCore.benchmark_test();
-  } catch (PiPicException& err) {
-    HandleErrorMessage(err);
-  } catch (...) {
-    HandleGeneralError();
-  }
+  } catch (std::bad_alloc err1) {
+    // PiPicException err(PiPicError::BadFileName);
+    // HandleErrorMessage(err);
+    std::cout << "eerrrooorrr \n";
+  }  // catch (...) {
+  //    HandleGeneralError();
+  //  }
+
+  std::cout << "Test button finished \n";
 }
