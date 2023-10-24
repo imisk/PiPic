@@ -14,6 +14,9 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_btn_Test_clicked() {
+
+  qDebug() << "Test clicked";
+
   try {
     mainCore.benchmark_test();
   } catch (std::bad_alloc err1) {

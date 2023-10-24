@@ -15,6 +15,8 @@ class benchmark {
 
   void test3();
 
+  void test3b();
+
   void testRW();
 
   void test4();
