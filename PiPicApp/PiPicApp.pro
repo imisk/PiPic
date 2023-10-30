@@ -14,6 +14,8 @@ SOURCES += \
     core.cpp \
     datamanager.cpp \
     error_message_box_util.cpp \
+    logStream.cpp \
+    logger.cpp \
     main.cpp \
     mainwindow.cpp \
     utility.cpp
@@ -26,6 +28,8 @@ HEADERS += \
     core.h \
   datamanager.h \
   error_message_box_util.h \
+    logStream.h \
+    logger.h \
     mainwindow.h \
   pipiccommon.h \
   utility.h

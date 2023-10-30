@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include "core.h"
+#include <string>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,8 +20,12 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow() override;
 
+
+signals:
+  void logMessageReceived(const QString& message);
  private slots:
   void on_btn_Test_clicked();
+  void appendLogMessage(const QString& message);
 
  private:
   Ui::MainWindow* ui;

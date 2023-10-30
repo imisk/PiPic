@@ -6,6 +6,7 @@
 #include "bigint.h"
 #include "datamanager.h"
 #include "utility.h"
+#include "logger.h"
 
 benchmark::benchmark() {}
 
@@ -39,9 +40,14 @@ void benchmark::test1() {
             << std::endl;
 
   std::cout << "result = " << result << '\n';
+
+
+
+
 }
 
-void benchmark::test2() {
+void benchmark::test2()
+{
   std::cout << "test 2 runs \n";
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -70,6 +76,7 @@ void benchmark::test2() {
             << std::endl;
 
   std::cout << "result = " << result << '\n';
+
 }
 
 void benchmark::dec6_test() {
@@ -194,7 +201,8 @@ void benchmark::test3() {
   std::cout << "result = " << result << '\n';
 }
 
-void benchmark::test3b() {
+void benchmark::test3b()
+{
   std::string pow = "30000";
 
   std::string sbase = "4";  // todo: convert from int base
@@ -217,6 +225,7 @@ void benchmark::test3b() {
             << std::endl;
 
   std::cout << "result = " << result << '\n';
+
 }
 
 void benchmark::testRW() {
@@ -250,4 +259,5 @@ void benchmark::testRW() {
 
 void benchmark::test4() {
   std::cout << "Testing cout output after update \n";
+//  LogMessage();
 }
