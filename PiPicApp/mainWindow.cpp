@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include <iostream>
-#include "error_message_box_util.h"
-#include "pipiccommon.h"
+#include "errorMessageBoxUtil.h"
+#include "piPicCommon.h"
 #include "ui_mainwindow.h"
 #include "logger.h"
 #include "logStream.h"

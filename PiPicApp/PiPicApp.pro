@@ -10,32 +10,32 @@ CONFIG += c++17
 
 SOURCES += \
     benchmark.cpp \
-    bhimutils.cpp \
+    bhimUtils.cpp \
     core.cpp \
-    datamanager.cpp \
-    error_message_box_util.cpp \
+    dataManager.cpp \
+    errorMessageBoxUtil.cpp \
     logStream.cpp \
     logger.cpp \
     main.cpp \
-    mainwindow.cpp \
+    mainWindow.cpp \
     utility.cpp
 
 HEADERS += \
-  bhimutils.h \
-  bigint.h \
-  BhimInteger.h \
+  bhimUtils.h \
+  bigInt.h \
+  bhimInteger.h \
     benchmark.h \
     core.h \
-  datamanager.h \
-  error_message_box_util.h \
+  dataManager.h \
+  errorMessageBoxUtil.h \
     logStream.h \
     logger.h \
-    mainwindow.h \
-  pipiccommon.h \
+    mainWindow.h \
+  piPicCommon.h \
   utility.h
 
 FORMS += \
-    mainwindow.ui
+    mainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

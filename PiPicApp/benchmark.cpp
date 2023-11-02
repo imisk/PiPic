@@ -2,9 +2,9 @@
 #include <iostream>
 
 #include <chrono>
-#include "BhimInteger.h"
-#include "bigint.h"
-#include "datamanager.h"
+#include "bhimInteger.h"
+#include "bigInt.h"
+#include "dataManager.h"
 #include "utility.h"
 #include "logger.h"
 

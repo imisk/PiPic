@@ -1,7 +1,7 @@
 #include "logStream.h"
 #include <QIODevice>
 #include <QDebug>
-#include "mainwindow.h"
+#include "mainWindow.h"
 
 MainWindow* mwp;
 

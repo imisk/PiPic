@@ -1,7 +1,7 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
-#include "BhimInteger.h"
+#include "bhimInteger.h"
 
 /*
  * Writes and reads objects to/from disk.

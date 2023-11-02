@@ -1,7 +1,7 @@
-#include "error_message_box_util.h"
+#include "errorMessageBoxUtil.h"
 #include <QMessageBox>
 #include <iostream>
-#include "pipiccommon.h"
+#include "piPicCommon.h"
 
 void HandleErrorMessage(const PiPicException& err) {
   std::cout << "HEM \n";

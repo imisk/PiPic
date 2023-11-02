@@ -1,8 +1,8 @@
-#include "datamanager.h"
+#include "dataManager.h"
 #include <fstream>
 #include <vector>
-#include "bhimutils.h"
-#include "pipiccommon.h"
+#include "bhimUtils.h"
+#include "piPicCommon.h"
 
 datamanager::datamanager() {}
 

@@ -1,7 +1,7 @@
 #ifndef BHIMUTILS_H
 #define BHIMUTILS_H
 
-#include "BhimInteger.h"
+#include "bhimInteger.h"
 
 BhimInteger to_BhimInteger(vector<uint8_t> vec);
 
