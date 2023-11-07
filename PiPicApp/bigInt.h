@@ -30,6 +30,7 @@
 #ifndef BIGINT_H
 #define BIGINT_H
 
+#include "qtpreprocessorsupport.h"
 #include <cmath>
 #include <limits>
 #include <sstream>
@@ -979,18 +980,21 @@ std::string bigint::divide(
 
 std::string bigint::shortDivide(
     std::string s1,
-    unsigned long long int
-        divisor) {  // return arithmetic division of str1/str2
+    unsigned long long int divisor)
+{  // return arithmetic division of str1/str2
+
   std::string ans;
   int idx = 0;
   long long int temp = s1[idx] - '0';
 
-  while (temp < divisor) {
+  while (temp < divisor)
+  {
     temp = temp * 10 + (s1[++idx] - '0');
-    if (idx >= s1.length())
+    if (idx >= static_cast<int>(s1.length()))
       break;
   }
-  while (s1.length() > idx) {
+
+  while (static_cast<int>(s1.length()) > idx) {
     ans += (temp / divisor) + '0';
     temp = (temp % divisor) * 10 + s1[++idx] - '0';
   }
@@ -1043,6 +1047,7 @@ std::string bigint::maximum(
     isMax1 = true;
   } else {
     isMax2 = true;
+    Q_UNUSED(isMax2);
   }
   if (bothNeg) {
     if (isMax1)
@@ -1055,6 +1060,8 @@ std::string bigint::maximum(
     else
       return trim(str2);
   }
+
+
 }
 
 std::string bigint::minimum(

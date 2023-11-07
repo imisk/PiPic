@@ -20,6 +20,8 @@ class benchmark {
   void testRW();
 
   void test4();
+
+  void dec300_test();
 };
 
 #endif  // BENCHMARK_H

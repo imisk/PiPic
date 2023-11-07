@@ -7,6 +7,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <QString>
+
 using namespace std;
 
 /**************************************************
@@ -82,13 +84,23 @@ class BhimInteger {
     str = N2.str;
   }
 
+  std::string& toString()
+  {
+    return str;
+  }
+
+  QString toQString()
+  {
+    return QString(str.c_str());
+  }
+
   BhimInteger& operator=(const BhimInteger& other) = default;
 
   // Input Validator
   bool isInputCorrect(string s) {
     if (s[0] == '-')
       s.erase(0, 1);
-    for (int i = 0; i < s.length(); ++i) {
+    for (int i = 0; i < static_cast<int>(s.length()); ++i) {
       if ((int)s[i] < 48 || (int)s[i] > 57)
         return false;
     }
@@ -456,11 +468,11 @@ class BhimInteger {
     while (temp < div) {
       temp = temp * 10 + (s1[++index] - '0');
 
-      if (index >= s1.length())
+      if (index >= static_cast<int>(s1.length()))
         break;
     }
 
-    while (s1.length() > index) {
+    while (static_cast<int>(s1.length()) > index) {
       result += (temp / div) + '0';
       temp = (temp % div) * 10 + s1[++index] - '0';
     }
@@ -478,11 +490,11 @@ class BhimInteger {
     while (temp < div) {
       temp = temp * 10 + (s1[++index] - '0');
 
-      if (index >= s1.length())
+      if (index >= static_cast<int>(s1.length()))
         break;
     }
 
-    while (s1.length() > index) {
+    while (static_cast<int>(s1.length()) > index) {
       result += (temp / div) + '0';
       temp = (temp % div) * 10 + s1[++index] - '0';
     }
@@ -626,6 +638,7 @@ class BhimInteger {
     return N3;
   }
 
+
   static string maxCompare(string s1, string s2) {
     string answer = "";
     int i;
@@ -642,7 +655,7 @@ class BhimInteger {
     } else if (s1[0] == '-' and s2[0] == '-' and s2.length() > s1.length()) {
       return s1;
     } else if (s1[0] != '-' and s2[0] != '-' and s2.length() == s1.length()) {
-      for (i = 0; i < s1.length(); i++) {
+      for (i = 0; i < static_cast<int>(s1.length()); i++) {
         if (s1[i] - '0' < s2[i] - '0') {
           return s2;
         } else if (s1[i] == s2[i]) {
@@ -652,7 +665,7 @@ class BhimInteger {
         }
       }
     } else if (s1[0] == '-' and s2[0] == '-' and s2.length() == s1.length()) {
-      for (i = 0; i < s1.length(); i++) {
+      for (i = 0; i < static_cast<int>(s1.length()); i++) {
         if (s1[i] - '0' < s2[i] - '0') {
           return s1;
         } else if (s1[i] == s2[i]) {
@@ -662,6 +675,8 @@ class BhimInteger {
         }
       }
     }
+
+    return answer;
   }
 
   static string minCompare(string s1, string s2) {
@@ -720,7 +735,7 @@ class BhimInteger {
   static int countBhimInteger(BhimInteger N1, int n) {
     char c = (char)(n + '0');
     int counti = 0;
-    for (int i = 0; i < N1.str.length(); i++) {
+    for (int i = 0; i < static_cast<int>(N1.str.length()); i++) {
       if (N1.str[i] == c)
         counti++;
     }
@@ -730,8 +745,8 @@ class BhimInteger {
   static BhimInteger eraseBhimInteger(BhimInteger N1, int n) {
     char c = (char)(n + '0');
     string s2 = "";
-    int counti = 0;
-    for (int i = 0; i < N1.str.length(); i++) {
+
+    for (int i = 0; i < static_cast<int>(N1.str.length()); i++) {
       if (N1.str[i] != c)
         s2 += N1.str[i];
     }

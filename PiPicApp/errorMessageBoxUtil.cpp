@@ -2,20 +2,21 @@
 #include <QMessageBox>
 #include <iostream>
 #include "piPicCommon.h"
+#include "logger.h"
 
 void HandleErrorMessage(const PiPicException& err) {
-  std::cout << "HEM \n";
-  //  QMessageBox msgBox;
+    Log() << "HEM \n";
+    QMessageBox msgBox;
 
-  //  std::string s(err.what());
+    std::string s(err.what());
 
-  //  QString message(s.c_str());
+    QString message(s.c_str());
 
-  //  QString full_message = "Error: " + message;
+    QString full_message = "Error: " + message;
 
-  //  msgBox.setText(full_message);
+    msgBox.setText(full_message);
 
-  //  msgBox.exec();
+    msgBox.exec();
 }
 
 void HandleGeneralError() {

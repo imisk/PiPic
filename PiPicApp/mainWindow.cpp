@@ -32,12 +32,18 @@ void MainWindow::on_btn_Test_clicked() {
   } catch (std::bad_alloc err1) {
     // PiPicException err(PiPicError::BadFileName);
     // HandleErrorMessage(err);
-    std::cout << "eerrrooorrr \n";
-  }  // catch (...) {
-  //    HandleGeneralError();
-  //  }
+    Log() << "eerrrooorrr \n";
 
-  std::cout << "Test button finished \n";
+  }
+  catch(PiPicException& exc)
+  {
+    HandleErrorMessage(exc);
+  }
+  catch (...) {
+      HandleGeneralError();
+    }
+
+  Log() << "Test button finished \n";
 }
 
 void MainWindow::appendLogMessage(const QString &message)
