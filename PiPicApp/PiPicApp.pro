@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     benchmark.cpp \
     bhimUtils.cpp \
+    calculator.cpp \
     core.cpp \
     dataManager.cpp \
     errorMessageBoxUtil.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
   bigInt.h \
   bhimInteger.h \
     benchmark.h \
+    calculator.h \
     core.h \
   dataManager.h \
   errorMessageBoxUtil.h \

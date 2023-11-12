@@ -14,4 +14,5 @@ int main(int argc, char* argv[])
   std::cout << "PiPic starting..." << std::endl;
 
   return a.exec();
+
 }

@@ -2,7 +2,11 @@
 #include <iostream>
 #include "logger.h"
 
-core::core() {}
+core::core() {
+
+    calc = std::make_unique<calculator>();
+
+}
 
 void core::benchmark_test() {
 
@@ -20,3 +24,9 @@ void core::benchmark_test() {
    //bench.testRW();
   //bench.dec300_test();
 }
+
+void core::trial()
+{
+  auto m = calc->getDigitDecimals(399);
+}
+
