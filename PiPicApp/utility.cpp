@@ -1,5 +1,6 @@
 #include "utility.h"
 #include <iostream>
+#include "logger.h"
 
 char decimalToHex(int decimal) {
   if (decimal >= 0 && decimal <= 9) {
@@ -7,7 +8,7 @@ char decimalToHex(int decimal) {
   } else if (decimal >= 10 && decimal <= 15) {
     return static_cast<char>(decimal - 10 + 'A');
   } else {
-    std::cout << "decimalToHex - invalid argument \n";
+    Log() << "decimalToHex - invalid argument \n";
     return '!';
   }
 }

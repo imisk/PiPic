@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <QString>
+#include "logger.h"
 
 using namespace std;
 
@@ -48,7 +49,7 @@ class BhimInteger {
     try {
       ret = std::stoi(str);
     } catch (...) {
-      std::cout << "Warning: failed conversion BhimInteger to int\n";
+      Log() << "Warning: failed conversion BhimInteger to int.";
     }
 
     return ret;

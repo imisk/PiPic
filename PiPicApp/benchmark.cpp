@@ -12,41 +12,40 @@ benchmark::benchmark() {}
 
 void benchmark::test1() {
   //speed test
-  std::cout << "test 1 runs \n";
+    Log() << "test 1 runs \n";
 
-  auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
 
-  int pow = 5000;
+    int pow = 5000;
 
-  bigint base("4");  // big integer initialization
+    bigint base("4");  // big integer initialization
                      // with String
 
-  bigint result("4");
+    bigint result("4");
 
-  for (int curPow = 0; curPow < pow; ++curPow) {
+    for (int curPow = 0; curPow < pow; ++curPow) {
     result *= base;
     //    if (curPow % 100 == 0) {
-    //      std::cout << "cp = " << curPow << '\n';
+    //      Log() << "cp = " << curPow << '\n';
     //    }
-  }
+    }
 
-  auto end = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
 
-  auto duration =
+    auto duration =
       std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
           .count();
 
-  // Print the elapsed time in milliseconds
-  std::cout << "Time taken by test1(): " << duration << " milliseconds"
-            << std::endl;
+    // Print the elapsed time in milliseconds
+    Log() << "Time taken by test1(): " << duration << " milliseconds";
 
-  std::cout << "result = " << result << '\n';
+
 
 }
 
 void benchmark::test2()
 {
-  std::cout << "test 2 runs \n";
+  Log() << "test 2 runs \n";
 
   auto start = std::chrono::high_resolution_clock::now();
 
@@ -59,7 +58,7 @@ void benchmark::test2()
   for (int curPow = 0; curPow < pow - 1; ++curPow) {
     result *= base;
     //    if (curPow % 100 == 0) {
-    //      std::cout << "cp = " << curPow << '\n';
+    //      Log() << "cp = " << curPow << '\n';
     //    }
   }
 
@@ -70,10 +69,9 @@ void benchmark::test2()
           .count();
 
   // Print the elapsed time in milliseconds
-  std::cout << "Time taken by test2(): " << duration << " milliseconds"
-            << std::endl;
+  Log() << "Time taken by test2(): " << duration << " milliseconds";
 
-  std::cout << "result = " << result << '\n';
+
 
 }
 
@@ -94,7 +92,7 @@ void benchmark::dec6_test() {
 
   //  for (int curPow = 0; curPow < pow - 1; ++curPow) {
   //    if (curPow % 100 == 0) {
-  //      std::cout << "cp = " << curPow << '\n';
+  //      Log() << "cp = " << curPow << '\n';
   //    }
   //  }
 
@@ -143,7 +141,7 @@ void benchmark::dec6_test() {
 
   bool finished = false;
 
-  std::cout << "\n\nDIGITS OUTPUT: \n";
+  Log() << "\n\nDIGITS OUTPUT: \n";
 
   std::string resultReversed = "";
 
@@ -170,7 +168,7 @@ void benchmark::dec6_test() {
   reverseString(resultReversed);
   Log() << "normal = " << QString(resultReversed.c_str()) << '\n';
 
-  std::cout << '\n';
+  Log() << '\n';
 
   ///
 }
@@ -195,10 +193,9 @@ void benchmark::test3() {
           .count();
 
   // Print the elapsed time in milliseconds
-  std::cout << "Time taken by test3(): " << duration << " milliseconds"
-            << std::endl;
+  Log() << "Time taken by test3(): " << duration << " milliseconds";
 
-  std::cout << "result = " << result << '\n';
+  Log() << "result = " << result.toQString();
 }
 
 void benchmark::test3b()
@@ -222,10 +219,9 @@ void benchmark::test3b()
           .count();
 
   // Print the elapsed time in milliseconds
-  std::cout << "Time taken by test3b(): " << duration << " milliseconds"
-            << std::endl;
+  Log() << "Time taken by test3b(): " << duration << " milliseconds";
 
-  std::cout << "result = " << result << '\n';
+  Log() << "result = " << result.toQString();
 
 }
 
@@ -259,11 +255,11 @@ void benchmark::testRW() {
 
   dm.Read_Value(fn, pr);
 
-  Log() << "pr = " << pr.toQString() << '\n';
+  Log() << "pr = " << pr.toQString();
 }
 
 void benchmark::test4() {
-  std::cout << "Testing cout output after update \n";
+
   //  LogMessage();
 }
 
@@ -308,7 +304,7 @@ void benchmark::dec300_test()
 
   auto pi_mul_start = pi * result;
 
-  Log() << "pi_mul_start = " << QString(pi_mul_start.toString().c_str()) << '\n';
+  Log() << "pi_mul_start = " << QString(pi_mul_start.toString().c_str());
 
   size_t curLength = pi_mul_start.getDigitCount();
 
@@ -316,7 +312,7 @@ void benchmark::dec300_test()
 
   pi_mul_start.removeDigitsAfterIdx(remainingDigits);
 
-  Log() << "pi_mul_start 2 = " << QString(pi_mul_start.toString().c_str()) << '\n';
+  Log() << "pi_mul_start 2 = " << QString(pi_mul_start.toString().c_str());
 
   BhimInteger quotient, r2w, digit;
 
@@ -324,7 +320,7 @@ void benchmark::dec300_test()
 
   bool finished = false;
 
-  std::cout << "\n\nDIGITS OUTPUT: \n";
+  Log() << "\n\nDIGITS OUTPUT: \n";
 
   std::vector<int> resultReversed;
 
