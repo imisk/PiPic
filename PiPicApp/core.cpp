@@ -27,6 +27,8 @@ void core::benchmark_test() {
 
 void core::trial()
 {
-  auto m = calc->getDigitDecimals(399);
+  //auto m = calc->getDigitDecimals(399);
+
+  calc->accuracyTrial1();
 }
 

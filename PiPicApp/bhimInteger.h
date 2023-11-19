@@ -41,6 +41,19 @@ class BhimInteger {
     size_t d = str.length() - idx;
     str.erase(str.length() - d);
   }
+
+  void setLastDigitsToZero(int digitCount)
+  {
+    int lastIdx = static_cast<int>(str.length()) - 1;
+    int firstIdx = lastIdx - digitCount + 1;
+
+    if (firstIdx < 0)
+        return;
+
+    for (int i = lastIdx; i >= firstIdx; i--) {
+        str[i] = '0';
+    }
+  }
   BhimInteger() { str = "0"; }
 
   int to_int() {
