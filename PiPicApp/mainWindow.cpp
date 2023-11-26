@@ -1,10 +1,10 @@
 #include "mainWindow.h"
-#include <iostream>
 #include "errorMessageBoxUtil.h"
-#include "piPicCommon.h"
-#include "ui_mainwindow.h"
-#include "logger.h"
 #include "logStream.h"
+#include "logger.h"
+#include "piPicCommon.h"
+#include "ui_mainWindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
