@@ -1,14 +1,13 @@
 #include "calculator.h"
+#include <QString>
+#include "../../gmp_build/gmp.h"
 #include "bhimInteger.h"
 #include "logger.h"
 #include "utility.h"
 #include <set>
 #include <vector>
 
-calculator::calculator()
-{
-
-}
+calculator::calculator() {}
 
 void calculator::accuracyTrial1()
 {
@@ -261,6 +260,69 @@ void calculator::accuracyTrial2b()
     }
 
     Log() << "Digits: " << res;
+}
+
+QString mpzToString(mpz_t n)
+{
+    // Allocate a buffer large enough to hold the number
+    // mpz_sizeinbase returns the size required to store n in base 10
+    // Add 2 for the sign and null terminator
+    size_t bufferSize = mpz_sizeinbase(n, 10) + 2;
+    char *buffer = new char[bufferSize];
+
+    // Convert mpz_t to char*
+    mpz_get_str(buffer, 10, n);
+
+    // Construct a std::string from char*
+    QString str(buffer);
+
+    // Clean up the buffer
+    delete[] buffer;
+
+    return str;
+}
+
+void calculator::gmpTrial1()
+{
+    mpz_t n;
+    mpz_init(n);
+    mpz_set_ui(n, 123456789); // Example number
+
+    auto str = mpzToString(n);
+    Log() << "Number: " << str;
+
+    mpz_clear(n);
+}
+
+void calculator::gmpTrial2()
+{
+    /*
+         mpz_t is the type defined for GMP integers.
+         It is a pointer to the internals of the GMP integer data structure
+       */
+    mpz_t n;
+
+    mpz_init(n);
+    mpz_set_ui(n, 123456789); // Example number
+
+    Log() << "n1 = " << mpzToString(n);
+
+    /* 3. Add one to the number */
+
+    mpz_add_ui(n, n, 1); /* n = n + 1 */
+
+    /* 4. Print the result */
+
+    Log() << "n + 1 = " << mpzToString(n);
+
+    /* 5. Square n+1 */
+
+    mpz_mul(n, n, n); /* n = n * n */
+
+    Log() << "n+1 squared = " << mpzToString(n);
+
+    /* 6. Clean up the mpz_t handles or else we will leak memory */
+    mpz_clear(n);
 }
 
 std::map<QString, int> calculator::getDigitDecimals(int base)

@@ -29,6 +29,8 @@ void core::trial()
 {
   //auto m = calc->getDigitDecimals(399);
 
-  calc->accuracyTrial2b();
+  //calc->accuracyTrial2b();
+
+  calc->gmpTrial2();
 }
 

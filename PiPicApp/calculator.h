@@ -15,6 +15,10 @@ public:
 
     void accuracyTrial2b();
 
+    void gmpTrial1();
+
+    void gmpTrial2();
+
     //Calculate the minimum number of digits required to identify the digit from the remainder
     std::map<QString, int> getDigitDecimals(int base);
 
