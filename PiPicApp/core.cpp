@@ -31,6 +31,6 @@ void core::trial()
 
   //calc->accuracyTrial2b();
 
-  calc->gmpTrial2();
+  calc->gmpTrial3();
 }
 
