@@ -25,7 +25,6 @@ LIBS += -L$$PWD/../../gmp_build/.libs -lgmp
 
 SOURCES += \
     benchmark.cpp \
-    bhimUtils.cpp \
     calculator.cpp \
     core.cpp \
     dataManager.cpp \
@@ -37,9 +36,6 @@ SOURCES += \
     utility.cpp
 
 HEADERS += \
-  bhimUtils.h \
-  bigInt.h \
-  bhimInteger.h \
     benchmark.h \
     calculator.h \
     core.h \

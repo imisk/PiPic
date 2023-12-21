@@ -7,21 +7,7 @@ class benchmark {
  public:
   benchmark();
 
-  void test1();
-
-  void test2();
-
-  void dec6_test();
-
-  void test3();
-
-  void test3b();
-
-  void testRW();
-
-  void test4();
-
-  void dec300_test();
+  void test();
 };
 
 #endif  // BENCHMARK_H

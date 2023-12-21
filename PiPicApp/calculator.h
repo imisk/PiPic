@@ -9,12 +9,6 @@ class calculator
 public:
     calculator();
 
-    void accuracyTrial1();
-
-    void accuracyTrial2a();
-
-    void accuracyTrial2b();
-
     void gmpTrial1();
 
     void gmpTrial2();
