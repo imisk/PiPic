@@ -11,7 +11,7 @@ CONFIG += c++17
 
 gmp_build_step.target = before_build
 gmp_build_step.commands = cd ../../gmp_build && $$PWD/../thirdparty/GMP/configure && make
-gmp_build_step.depends = FORCE
+#gmp_build_step.depends = FORCE
 
 QMAKE_EXTRA_TARGETS += gmp_build_step
 PRE_TARGETDEPS += before_build
@@ -29,6 +29,7 @@ SOURCES += \
     core.cpp \
     dataManager.cpp \
     errorMessageBoxUtil.cpp \
+    inputDataManager.cpp \
     logStream.cpp \
     logger.cpp \
     main.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     core.h \
   dataManager.h \
   errorMessageBoxUtil.h \
+    inputDataManager.h \
     logStream.h \
     logger.h \
     mainWindow.h \

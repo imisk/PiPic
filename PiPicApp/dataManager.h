@@ -1,9 +1,9 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
-
 /*
- * Writes and reads objects to/from disk.
+ * Writes and reads objects to/from disk. 
+ * Related only to data of save states and calculation.
  */
 #include <fstream>
 class datamanager

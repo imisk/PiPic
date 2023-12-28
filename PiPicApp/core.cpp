@@ -1,11 +1,12 @@
 #include "core.h"
-#include <iostream>
+#include "inputDataManager.h"
 #include "logger.h"
+#include <iostream>
 
 core::core() {
 
     calc = std::make_unique<calculator>();
-
+    inputDataMngr = std::make_unique<inputDataManager>();
 }
 
 void core::benchmark_test() {
@@ -20,6 +21,9 @@ void core::trial()
 
   //calc->accuracyTrial2b();
 
-  calc->gmpTrial3();
+  //calc->gmpTrial3();
+
+  QString pi;
+  inputDataMngr->loadPiFromDisk1Million(20, pi);
 }
 

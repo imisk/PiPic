@@ -2,9 +2,9 @@
 #define CORE_H
 
 #include "benchmark.h"
-#include <memory>
 #include "calculator.h"
-
+#include <inputDataManager.h>
+#include <memory>
 class core {
  public:
   core();
@@ -16,7 +16,8 @@ class core {
  private:
   benchmark bench;
 
-    std::unique_ptr<calculator> calc;
+  std::unique_ptr<calculator> calc;
+  std::unique_ptr<inputDataManager> inputDataMngr;
 };
 
 #endif  // CORE_H
