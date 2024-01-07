@@ -23,7 +23,9 @@ void core::trial()
 
   //calc->gmpTrial3();
 
-  QString pi;
-  inputDataMngr->loadPiFromDisk1Million(20, pi);
-}
+  //QString pi;
+  //inputDataMngr->loadPiFromDisk1Million(20, pi);
 
+  std::string path = "10k/41.txt";
+  auto ints = inputDataMngr->loadKnownCalculation(path);
+}
