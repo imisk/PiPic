@@ -7,6 +7,8 @@ core::core() {
 
     calc = std::make_unique<calculator>();
     inputDataMngr = std::make_unique<inputDataManager>();
+
+    bench = std::make_unique<benchmark>(inputDataMngr.get(), calc.get());
 }
 
 void core::benchmark_test() {
@@ -26,6 +28,8 @@ void core::trial()
   //QString pi;
   //inputDataMngr->loadPiFromDisk1Million(20, pi);
 
-  std::string path = "10k/41.txt";
-  auto ints = inputDataMngr->loadKnownCalculation(path);
+  //std::string path = "10k/41.txt";
+  //auto ints = inputDataMngr->loadKnownCalculation(path);
+
+  bench->accuracyTrialInputLength();
 }

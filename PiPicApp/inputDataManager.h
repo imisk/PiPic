@@ -10,10 +10,10 @@ public:
     inputDataManager();
 
     //Loads Pi value from large text file
-    void loadPiFromDisk1Million(size_t maxDigitsToLoad, QString &retNumber);
+    void loadPiFromDisk1Million(size_t maxDigitsToLoad, std::string &retNumber);
 
     //Load known digits for accuracy verification testing. File text format "123,456,223"
-    std::vector<int> loadKnownCalculation(std::string &filePath);
+    std::vector<unsigned long int> loadKnownCalculation(std::string &filePath);
 };
 
 #endif // INPUTDATAMANAGER_H

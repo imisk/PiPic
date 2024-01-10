@@ -13,7 +13,7 @@ inputDataManager::inputDataManager()
     
 }
 
-void inputDataManager::loadPiFromDisk1Million(size_t maxDigitsToLoad, QString &retNumber)
+void inputDataManager::loadPiFromDisk1Million(size_t maxDigitsToLoad, std::string &retNumber)
 {
     std::string filePath = "pi_dec_1m.txt";
 
@@ -23,23 +23,19 @@ void inputDataManager::loadPiFromDisk1Million(size_t maxDigitsToLoad, QString &r
         return;
     }
 
-    std::string number;
-    file >> number;
+    retNumber = "";
+    file >> retNumber;
 
     file.close();
 
-    if (maxDigitsToLoad < number.length()) {
-        number = number.substr(0, maxDigitsToLoad);
+    if (maxDigitsToLoad < retNumber.length()) {
+        retNumber = retNumber.substr(0, maxDigitsToLoad);
     }
-
-    retNumber = QString(number.c_str());
-
-    Log() << "retNumber = " << retNumber;
 }
 
-std::vector<int> inputDataManager::loadKnownCalculation(std::string &filePath)
+std::vector<unsigned long int> inputDataManager::loadKnownCalculation(std::string &filePath)
 {
-    std::vector<int> integers;
+    std::vector<unsigned long int> integers;
     std::ifstream file(filePath);
     std::string line;
 
@@ -50,7 +46,7 @@ std::vector<int> inputDataManager::loadKnownCalculation(std::string &filePath)
 
             while (std::getline(ss, value, ',')) {
                 try {
-                    integers.push_back(std::stoi(value));
+                    integers.push_back(std::stoul(value));
                 } catch (...) {
                 }
             }

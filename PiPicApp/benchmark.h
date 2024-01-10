@@ -3,11 +3,20 @@
 
 // Benchmark tests to decide which bigint libraries are best
 
-class benchmark {
- public:
-  benchmark();
+class inputDataManager;
+class calculator;
 
-  void test();
+class benchmark
+{
+public:
+    benchmark(inputDataManager *nInputDataManager, calculator *nCalc);
+
+    void accuracyTrialInputLength();
+    void test();
+
+private:
+    inputDataManager *inputDataMngr;
+    calculator *calc;
 };
 
 #endif  // BENCHMARK_H

@@ -14,10 +14,10 @@ class core {
   void trial();
 
  private:
-  benchmark bench;
+     std::unique_ptr<benchmark> bench;
 
-  std::unique_ptr<calculator> calc;
-  std::unique_ptr<inputDataManager> inputDataMngr;
+     std::unique_ptr<calculator> calc;
+     std::unique_ptr<inputDataManager> inputDataMngr;
 };
 
 #endif  // CORE_H
