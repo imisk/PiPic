@@ -57,8 +57,6 @@ std::vector<unsigned long int> inputDataManager::loadKnownCalculation(std::strin
         return integers;
     }
 
-    Log() << "vec size = " << integers.size();
-
     for (int i = 0; i < 10; i++) {
         Log() << integers[i];
     }
