@@ -31,5 +31,7 @@ void core::trial()
   //std::string path = "10k/41.txt";
   //auto ints = inputDataMngr->loadKnownCalculation(path);
 
-  bench->accuracyTrialInputLength();
+  //bench->accuracyTrialInputLength();
+
+  inputDataMngr->initInformationRatioTable();
 }

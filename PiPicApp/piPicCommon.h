@@ -3,13 +3,21 @@
 
 #include <iostream>
 
-enum class PiPicError {
-  OK = 0,
-  CannotCreateFile = 1,
-  CannotLoadFile = 2,
-  BadFileName = 3
-};
+enum class PiPicError { OK = 0, CannotCreateFile = 1, CannotLoadFile = 2, BadFileName = 3 };
 
+struct baseDigitInformationRatioItem
+{
+    /*For a given base, if you are using Pi in base 10 as input, you need to calculate
+     * how many digits your input length can produce. For larger bases, you can produce
+     * fewer digits before the accuracy decreases, because each digit contains more
+     * information. The multiplier tells you how many accurate digits you can expect
+     * based on the number of base10 pi digits you have as input.
+    */
+    int base;
+    double multiplier;
+
+    bool operator<(baseDigitInformationRatioItem& other) { return base < other.base; }
+};
 
 class PiPicException : public std::exception {
  public:

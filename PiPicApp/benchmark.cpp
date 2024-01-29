@@ -14,9 +14,9 @@ benchmark::benchmark(inputDataManager *nInputDataManager, calculator *nCalc)
 
 void benchmark::accuracyTrialInputLength()
 {
-    std::string filePathKnownCalc = "10k/31291.txt"; //variable
+    std::string filePathKnownCalc = "10k/450000.txt"; //variable
 
-    std::vector<unsigned long int> knownDigits = inputDataMngr->loadKnownCalculation(
+    std::vector<unsigned long int> knownDigits = inputDataMngr->loadCommaSeparatedValues(
         filePathKnownCalc);
 
     //How long the source Pi string will be
@@ -28,7 +28,7 @@ void benchmark::accuracyTrialInputLength()
         inputDataMngr->loadPiFromDisk1Million(currentInputLength, pi);
 
         std::vector<unsigned long int> digits = calc->convertNumberToBase(pi,
-                                                                          31291,
+                                                                          450000,
                                                                           10000); //base is variable
 
         bool finished = false;
@@ -46,6 +46,10 @@ void benchmark::accuracyTrialInputLength()
         }
 
         Log() << "InputLen = " << currentInputLength << " _ match count = " << i;
+
+        double ratio = static_cast<double>(i) / static_cast<double>(currentInputLength);
+
+        Log() << "ratio = " << ratio;
         QApplication::processEvents();
     }
 }
