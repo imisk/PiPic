@@ -3,7 +3,13 @@
 
 #include <iostream>
 
-enum class PiPicError { OK = 0, CannotCreateFile = 1, CannotLoadFile = 2, BadFileName = 3 };
+enum class PiPicError {
+    OK = 0,
+    CannotCreateFile = 1,
+    CannotLoadFile = 2,
+    BadFileName = 3,
+    BaseOutOfRange = 4
+};
 
 struct baseDigitInformationRatioItem
 {
@@ -60,6 +66,10 @@ class PiPicException : public std::exception {
         break;
     case PiPicError::BadFileName:
         msg1 = "Bad file name \n";
+        break;
+
+    case PiPicError::BaseOutOfRange:
+        msg1 = "Base is out of allowed range. Select a different base. \n";
         break;
     }
 

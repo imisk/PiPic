@@ -66,11 +66,47 @@ std::vector<unsigned long int> inputDataManager::loadCommaSeparatedValues(std::s
 
 double inputDataManager::getInformationRatioMultiplier(int base)
 {
-    /*
+    /*This function looks up the values from informationRatioTable and returns and
+     * interpolated value for the given base.
+     * 
      * Reduce the value by linearityMultiplier because table uses linear interpolation,
      * while the real curve is logarithmic in nature.
     */
     double linearityMultiplier = 0.97;
+
+    if (base < informationRatioTable[0].base
+        || base > informationRatioTable[informationRatioTable.size() - 1].base) {
+        throw PiPicException(PiPicError::BadFileName);
+    }
+
+    for (size_t i = 0; i < informationRatioTable.size(); i++) {
+        auto &itm = informationRatioTable[i];
+
+        if (itm.base == base) {
+            return itm.multiplier * linearityMultiplier;
+        }
+
+        if (itm.base > base) {
+            //perform interpolation
+
+            auto &prev = informationRatioTable[i - 1];
+            double b = static_cast<double>(base);
+
+            double unitsFromPrev = b - prev.base;
+
+            double deltaPerUnit = (itm.multiplier - prev.multiplier) / (itm.base - prev.base);
+
+            double totalDelta = unitsFromPrev * deltaPerUnit;
+
+            double ret = prev.multiplier + totalDelta;
+
+            ret *= linearityMultiplier;
+
+            return ret;
+        }
+    }
+
+    return 0.0;
 }
 
 void inputDataManager::initInformationRatioTable()
