@@ -14,6 +14,10 @@ public:
     void accuracyTrialInputLength();
     void test();
 
+    void accuracyTrialPrec();
+
+    void accuracyTrialPrecMultiple();
+
 private:
     inputDataManager *inputDataMngr;
     calculator *calc;

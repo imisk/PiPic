@@ -231,11 +231,13 @@ std::map<QString, int> calculator::getDigitDecimals(int base)
     return ret;
 }
 
-std::vector<unsigned long int> calculator::convertNumberToBase(std::string &inputNumber,
+std::vector<unsigned long int> calculator::convertNumberToBase(std::string& inputNumber,
                                                                int base,
-                                                               size_t maxDigits)
+                                                               size_t maxDigits,
+                                                               unsigned long precision)
 {
-    const int precision = 20000000;
+    //const unsigned long int precision = 20000000;
+    //const unsigned long int precision = 50000;
 
     std::vector<unsigned long int> ret;
 

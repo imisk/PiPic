@@ -19,10 +19,16 @@ public:
     //If you have N digits in base 10 representation, you can calculate N*multiplier digits in base representation
     double getInformationRatioMultiplier(int base);
 
+    int getRequiredPiDecimalDigits(int targetBase, int targetDigits);
+
 private:
     std::vector<baseDigitInformationRatioItem> informationRatioTable;
 
+    std::vector<precisionRatio> precisionRatioTable;
+
     void initInformationRatioTable();
+
+    void initPrecisionRatioTable();
 };
 
 #endif // INPUTDATAMANAGER_H

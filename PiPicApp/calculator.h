@@ -21,7 +21,8 @@ public:
 
     std::vector<unsigned long int> convertNumberToBase(std::string &inputNumber,
                                                        int base,
-                                                       size_t maxDigits);
+                                                       size_t maxDigits,
+                                                       unsigned long int precision);
 };
 
 #endif // CALCULATOR_H

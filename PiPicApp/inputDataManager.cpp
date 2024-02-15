@@ -57,10 +57,6 @@ std::vector<unsigned long int> inputDataManager::loadCommaSeparatedValues(std::s
         return integers;
     }
 
-    for (int i = 0; i < 10; i++) {
-        Log() << integers[i];
-    }
-
     return integers;
 }
 
@@ -70,13 +66,13 @@ double inputDataManager::getInformationRatioMultiplier(int base)
      * interpolated value for the given base.
      * 
      * Reduce the value by linearityMultiplier because table uses linear interpolation,
-     * while the real curve is logarithmic in nature.
+     * while the real curve is logarithmic in nature, so just make sure you stay below it.
     */
     double linearityMultiplier = 0.97;
 
     if (base < informationRatioTable[0].base
         || base > informationRatioTable[informationRatioTable.size() - 1].base) {
-        throw PiPicException(PiPicError::BadFileName);
+        throw PiPicException(PiPicError::BaseOutOfRange);
     }
 
     for (size_t i = 0; i < informationRatioTable.size(); i++) {
@@ -88,7 +84,6 @@ double inputDataManager::getInformationRatioMultiplier(int base)
 
         if (itm.base > base) {
             //perform interpolation
-
             auto &prev = informationRatioTable[i - 1];
             double b = static_cast<double>(base);
 
@@ -109,9 +104,18 @@ double inputDataManager::getInformationRatioMultiplier(int base)
     return 0.0;
 }
 
+int inputDataManager::getRequiredPiDecimalDigits(int targetBase, int targetDigits)
+{
+    double mul = getInformationRatioMultiplier(targetBase);
+
+    double rd = static_cast<double>(targetDigits) / mul;
+
+    return static_cast<int>(rd);
+}
+
 void inputDataManager::initInformationRatioTable()
 {
-    //These values have been derived empyrically
+    //These values have been derived empyrically using benchmark::accuracyTrialInputLength
     informationRatioTable.push_back({11, 0.959});
     informationRatioTable.push_back({16, 0.829});
     informationRatioTable.push_back({20, 0.767});
@@ -150,4 +154,41 @@ void inputDataManager::initInformationRatioTable()
     for (auto &r : informationRatioTable) {
         Log() << "base = " << r.base << " _ mul = " << r.multiplier;
     }
+}
+
+void inputDataManager::initPrecisionRatioTable()
+{
+    //calculated using benchmark::accuracyTrialPrecMultiple
+    precisionRatioTable.push_back({11, 3.45742});
+    precisionRatioTable.push_back({16, 3.99787});
+    precisionRatioTable.push_back({20, 4.31965});
+    precisionRatioTable.push_back({30, 4.90356});
+    precisionRatioTable.push_back({41, 5.35427});
+    precisionRatioTable.push_back({60, 5.90319});
+    precisionRatioTable.push_back({90, 6.48789});
+    precisionRatioTable.push_back({150, 7.22369});
+    precisionRatioTable.push_back({211, 7.71605});
+    precisionRatioTable.push_back({300, 8.22368});
+    precisionRatioTable.push_back({400, 8.63807});
+    precisionRatioTable.push_back({567, 9.14077});
+    precisionRatioTable.push_back({700, 9.44584});
+    precisionRatioTable.push_back({900, 9.80713});
+    precisionRatioTable.push_back({1200, 10.2215});
+    precisionRatioTable.push_back({1511, 10.5522});
+    precisionRatioTable.push_back({2000, 10.9609});
+    precisionRatioTable.push_back({4000, 11.957});
+    precisionRatioTable.push_back({8000, 12.959});
+    precisionRatioTable.push_back({10001, 13.2802});
+    precisionRatioTable.push_back({14000, 13.7678});
+    precisionRatioTable.push_back({18000, 14.1243});
+    precisionRatioTable.push_back({21755, 14.4023});
+    precisionRatioTable.push_back({26000, 14.6556});
+    precisionRatioTable.push_back({31291, 14.9254});
+    precisionRatioTable.push_back({40000, 15.2749});
+    precisionRatioTable.push_back({50000, 15.6006});
+    precisionRatioTable.push_back({80000, 16.2778});
+    precisionRatioTable.push_back({110000, 16.7317});
+    precisionRatioTable.push_back({150000, 17.1821});
+    precisionRatioTable.push_back({300000, 18.1818});
+    precisionRatioTable.push_back({450000, 18.7617});
 }

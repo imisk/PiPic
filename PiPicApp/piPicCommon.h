@@ -11,6 +11,15 @@ enum class PiPicError {
     BaseOutOfRange = 4
 };
 
+struct precisionRatio
+{
+    //The ratio between the required precision bits and target base
+    int base;
+    double ratio;
+
+    bool operator<(precisionRatio& other) { return ratio > other.ratio; }
+};
+
 struct baseDigitInformationRatioItem
 {
     /*For a given base, if you are using Pi in base 10 as input, you need to calculate

@@ -35,8 +35,7 @@ void core::trial()
 
   //auto d = inputDataMngr->getInformationRatioMultiplier(12);
 
-  for (int base = 11; base < 70; base++) {
-      auto d = inputDataMngr->getInformationRatioMultiplier(base);
-      Log() << d;
-  }
+  //bench->accuracyTrialPrec();
+
+  bench->accuracyTrialPrecMultiple();
 }
