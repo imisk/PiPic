@@ -11,6 +11,12 @@ enum class PiPicError {
     BaseOutOfRange = 4
 };
 
+struct baseTableValue
+{
+    int base;
+    double value;
+};
+
 struct precisionRatio
 {
     //The ratio between the required precision bits and target base

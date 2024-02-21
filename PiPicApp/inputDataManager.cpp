@@ -62,6 +62,8 @@ std::vector<unsigned long int> inputDataManager::loadCommaSeparatedValues(std::s
 
 double inputDataManager::getInformationRatioMultiplier(int base)
 {
+    //only add linearityMultiplier
+
     /*This function looks up the values from informationRatioTable and returns and
      * interpolated value for the given base.
      * 
@@ -70,38 +72,9 @@ double inputDataManager::getInformationRatioMultiplier(int base)
     */
     double linearityMultiplier = 0.97;
 
-    if (base < informationRatioTable[0].base
-        || base > informationRatioTable[informationRatioTable.size() - 1].base) {
-        throw PiPicException(PiPicError::BaseOutOfRange);
-    }
+    double ret = getInterpolatedValueFromTable(base, informationRatioTable);
 
-    for (size_t i = 0; i < informationRatioTable.size(); i++) {
-        auto &itm = informationRatioTable[i];
-
-        if (itm.base == base) {
-            return itm.multiplier * linearityMultiplier;
-        }
-
-        if (itm.base > base) {
-            //perform interpolation
-            auto &prev = informationRatioTable[i - 1];
-            double b = static_cast<double>(base);
-
-            double unitsFromPrev = b - prev.base;
-
-            double deltaPerUnit = (itm.multiplier - prev.multiplier) / (itm.base - prev.base);
-
-            double totalDelta = unitsFromPrev * deltaPerUnit;
-
-            double ret = prev.multiplier + totalDelta;
-
-            ret *= linearityMultiplier;
-
-            return ret;
-        }
-    }
-
-    return 0.0;
+    return ret * linearityMultiplier;
 }
 
 int inputDataManager::getRequiredPiDecimalDigits(int targetBase, int targetDigits)
@@ -113,8 +86,64 @@ int inputDataManager::getRequiredPiDecimalDigits(int targetBase, int targetDigit
     return static_cast<int>(rd);
 }
 
+unsigned long int inputDataManager::getRequiredPrecision(int targetBase, int targetDigitCount)
+{
+    //required precision = digits to calculate * ratio
+
+    double safetyMultiplier
+        = 1.1; //if you reduce this, maybe minor speedup. 0.9 would mean the last 10% digits are wrong.
+
+    double ratio = getInterpolatedValueFromTable(targetBase, precisionRatioTable);
+
+    double precisionRequired = static_cast<double>(targetDigitCount) * ratio;
+
+    precisionRequired *= safetyMultiplier;
+
+    return static_cast<unsigned long int>(precisionRequired);
+}
+
+double inputDataManager::getInterpolatedValueFromTable(int base, std::vector<baseTableValue> &table)
+{
+    if (base < table[0].base || base > table[table.size() - 1].base) {
+        throw PiPicException(PiPicError::BaseOutOfRange);
+    }
+
+    for (size_t i = 0; i < table.size(); i++) {
+        auto &itm = table[i];
+
+        if (itm.base == base) {
+            return itm.value;
+        }
+
+        if (itm.base > base) {
+            //perform interpolation
+            auto &prev = table[i - 1];
+            double b = static_cast<double>(base);
+
+            double unitsFromPrev = b - prev.base;
+
+            double deltaPerUnit = (itm.value - prev.value) / (itm.base - prev.base);
+
+            double totalDelta = unitsFromPrev * deltaPerUnit;
+
+            double ret = prev.value + totalDelta;
+
+            return ret;
+        }
+    }
+
+    return 0.0;
+}
+
 void inputDataManager::initInformationRatioTable()
 {
+    /*For a given base, if you are using Pi in base 10 as input, you need to calculate
+     * how many digits your input length can produce. For larger bases, you can produce
+     * fewer digits before the accuracy decreases, because each digit contains more
+     * information. The multiplier tells you how many accurate digits you can expect
+     * based on the number of base10 pi digits you have as input.
+    */
+
     //These values have been derived empyrically using benchmark::accuracyTrialInputLength
     informationRatioTable.push_back({11, 0.959});
     informationRatioTable.push_back({16, 0.829});
@@ -150,14 +179,12 @@ void inputDataManager::initInformationRatioTable()
     informationRatioTable.push_back({450000, 0.1767});
 
     std::sort(informationRatioTable.begin(), informationRatioTable.end());
-
-    for (auto &r : informationRatioTable) {
-        Log() << "base = " << r.base << " _ mul = " << r.multiplier;
-    }
 }
 
 void inputDataManager::initPrecisionRatioTable()
 {
+    //The ratio between the required precision bits and target base
+
     //calculated using benchmark::accuracyTrialPrecMultiple
     precisionRatioTable.push_back({11, 3.45742});
     precisionRatioTable.push_back({16, 3.99787});

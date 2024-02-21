@@ -22,9 +22,10 @@ public:
     int getRequiredPiDecimalDigits(int targetBase, int targetDigits);
 
 private:
-    std::vector<baseDigitInformationRatioItem> informationRatioTable;
+    double getInterpolatedValueFromTable(int base, std::vector<baseTableValue> &table);
+    std::vector<baseTableValue> informationRatioTable;
 
-    std::vector<precisionRatio> precisionRatioTable;
+    std::vector<baseTableValue> precisionRatioTable;
 
     void initInformationRatioTable();
 
