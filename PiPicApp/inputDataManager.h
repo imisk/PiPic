@@ -19,7 +19,9 @@ public:
     //If you have N digits in base 10 representation, you can calculate N*multiplier digits in base representation
     double getInformationRatioMultiplier(int base);
 
-    int getRequiredPiDecimalDigits(int targetBase, int targetDigits);
+    int getRequiredPiDecimalDigits(int targetBase, int targetDigitCount);
+
+    unsigned long int getRequiredPrecision(int targetBase, int targetDigitCount);
 
 private:
     double getInterpolatedValueFromTable(int base, std::vector<baseTableValue> &table);

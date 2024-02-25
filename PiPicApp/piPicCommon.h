@@ -15,6 +15,8 @@ struct baseTableValue
 {
     int base;
     double value;
+
+    bool operator<(baseTableValue& other) { return value > other.value; };
 };
 
 struct precisionRatio

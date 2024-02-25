@@ -90,8 +90,8 @@ unsigned long int inputDataManager::getRequiredPrecision(int targetBase, int tar
 {
     //required precision = digits to calculate * ratio
 
-    double safetyMultiplier
-        = 1.1; //if you reduce this, maybe minor speedup. 0.9 would mean the last 10% digits are wrong.
+    //if you reduce safetyMultiplier, maybe minor speedup and memory saving. 0.9 would mean the last 10% digits are wrong.
+    double safetyMultiplier = 1.05;
 
     double ratio = getInterpolatedValueFromTable(targetBase, precisionRatioTable);
 
@@ -177,8 +177,6 @@ void inputDataManager::initInformationRatioTable()
     informationRatioTable.push_back({150000, 0.193});
     informationRatioTable.push_back({300000, 0.1824});
     informationRatioTable.push_back({450000, 0.1767});
-
-    std::sort(informationRatioTable.begin(), informationRatioTable.end());
 }
 
 void inputDataManager::initPrecisionRatioTable()
