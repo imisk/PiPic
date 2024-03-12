@@ -236,8 +236,6 @@ std::vector<unsigned long int> calculator::convertNumberToBase(std::string& inpu
                                                                size_t maxDigits,
                                                                unsigned long precision)
 {
-    //const unsigned long int precision = 20000000;
-    //const unsigned long int precision = 50000;
 
     std::vector<unsigned long int> ret;
 

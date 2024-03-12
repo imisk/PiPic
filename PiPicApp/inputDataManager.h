@@ -10,6 +10,8 @@ class inputDataManager
 public:
     inputDataManager();
 
+    void loadPiFromDisk1Billion(size_t maxDigitsToLoad, std::string &retNumber);
+
     //Loads Pi value from large text file
     void loadPiFromDisk1Million(size_t maxDigitsToLoad, std::string &retNumber);
 

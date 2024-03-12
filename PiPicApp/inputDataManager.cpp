@@ -13,8 +13,38 @@ inputDataManager::inputDataManager()
     initInformationRatioTable();
 }
 
+void inputDataManager::loadPiFromDisk1Billion(size_t maxDigitsToLoad, std::string &retNumber)
+{
+    if (maxDigitsToLoad > 1000000000) {
+        Log() << "Error: cannot load more than 1 billion decimals of Pi.";
+        return;
+    }
+
+    std::string filePath = "pi_dec_1m.txt";
+
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        Log() << "Unable to open file " << QString(filePath.c_str());
+        return;
+    }
+
+    retNumber = "";
+    file >> retNumber;
+
+    file.close();
+
+    if (maxDigitsToLoad < retNumber.length()) {
+        retNumber = retNumber.substr(0, maxDigitsToLoad);
+    }
+}
+
 void inputDataManager::loadPiFromDisk1Million(size_t maxDigitsToLoad, std::string &retNumber)
 {
+    if (maxDigitsToLoad > 1000000) {
+        Log() << "Error: if you want to load more than 1 million digits, use a different function.";
+        return;
+    }
+
     std::string filePath = "pi_dec_1m.txt";
 
     std::ifstream file(filePath);

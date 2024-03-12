@@ -34,6 +34,7 @@ SOURCES += \
     logger.cpp \
     main.cpp \
     mainWindow.cpp \
+    queueManager.cpp \
     utility.cpp
 
 HEADERS += \
@@ -47,6 +48,7 @@ HEADERS += \
     logger.h \
     mainWindow.h \
   piPicCommon.h \
+    queueManager.h \
   utility.h
 
 FORMS += \
