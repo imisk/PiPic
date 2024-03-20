@@ -16,12 +16,14 @@ public:
 
     void writeDigitsToFile(QString &filename, std::vector<unsigned long> digits);
 
+    void readDigitsFromFile(QString &fileName, std::vector<unsigned long> &retDigits);
+
 private:
     template<typename T>
     void dataWrite(std::ofstream &fs, T &val);
 
     template<typename T>
-    void dataRead(std::fstream &fr, T &val);
+    void dataRead(std::ifstream &fr, T &val);
 };
 
 #endif  // DATAMANAGER_H

@@ -29,6 +29,28 @@ void datamanager::writeDigitsToFile(QString &filename, std::vector<unsigned long
     Log() << "writeDigitsToFile - Finished writing.";
 }
 
+void datamanager::readDigitsFromFile(QString &fileName, std::vector<unsigned long> &retDigits)
+{
+    std::ifstream file;
+    file.open(fileName.toStdString(), std::ios::binary | std::ios::in);
+
+    if (!file.is_open()) {
+        Log() << "Error: readDigitsFromFile - could not open the file.";
+    }
+
+    size_t count;
+
+    dataRead(file, count);
+
+    for (size_t i = 0; i < count; i++) {
+        unsigned long decimal;
+        dataRead(file, decimal);
+        retDigits.push_back(decimal);
+    }
+
+    file.close();
+}
+
 template<typename T>
 void datamanager::dataWrite(std::ofstream &fs, T &val)
 {
@@ -36,7 +58,7 @@ void datamanager::dataWrite(std::ofstream &fs, T &val)
 }
 
 template<typename T>
-void datamanager::dataRead(std::fstream &fr, T &val)
+void datamanager::dataRead(std::ifstream &fr, T &val)
 {
     fr.read(reinterpret_cast<char *>(&val), sizeof(val));
 }
