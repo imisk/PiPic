@@ -11,6 +11,7 @@
 inputDataManager::inputDataManager()
 {
     initInformationRatioTable();
+    initPrecisionRatioTable();
 }
 
 void inputDataManager::loadPiFromDisk1Billion(size_t maxDigitsToLoad, std::string &retNumber)
@@ -20,7 +21,7 @@ void inputDataManager::loadPiFromDisk1Billion(size_t maxDigitsToLoad, std::strin
         return;
     }
 
-    std::string filePath = "pi_dec_1m.txt";
+    std::string filePath = "pi_dec_1b.txt";
 
     std::ifstream file(filePath);
     if (!file.is_open()) {

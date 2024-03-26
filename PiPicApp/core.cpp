@@ -2,6 +2,7 @@
 #include "inputDataManager.h"
 #include "logger.h"
 #include <iostream>
+#include <queueManager.h>
 
 core::core() {
 
@@ -37,5 +38,11 @@ void core::trial()
 
   //bench->accuracyTrialPrec();
 
-  bench->accuracyTrialPrecMultiple();
+  //bench->accuracyTrialPrecMultiple();
+
+  //bench->saveLoadTrial();
+
+  queueManager qm;
+
+  qm.executeItem();
 }

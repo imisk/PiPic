@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <calculator.h>
 #include <chrono>
+#include <dataManager.h>
 #include <inputDataManager.h>
 #include <logger.h>
 
@@ -195,5 +196,24 @@ void benchmark::accuracyTrialPrecMultiple()
         Log() << "inpLen = " << currentInputLength << " _ precision = " << precision
               << " _ match count = " << k << " _ ratio = " << ratio << " _ base = " << base;
         QApplication::processEvents();
+    }
+}
+
+void benchmark::saveLoadTrial()
+{
+    std::vector<unsigned long> vec = {233, 441, 2231, 4432421, 21342, 122313, 43422};
+
+    dataManager dm;
+
+    QString fn = "test123.dec";
+
+    dm.writeDigitsToFile(fn, vec);
+
+    std::vector<unsigned long> v2;
+
+    dm.readDigitsFromFile(fn, v2);
+
+    for (auto &d : v2) {
+        Log() << d;
     }
 }

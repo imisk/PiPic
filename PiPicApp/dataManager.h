@@ -9,10 +9,10 @@
  * Related only to data of save states and calculation.
  */
 #include <fstream>
-class datamanager
+class dataManager
 {
 public:
-    datamanager();
+    dataManager();
 
     void writeDigitsToFile(QString &filename, std::vector<unsigned long> digits);
 

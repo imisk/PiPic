@@ -18,6 +18,8 @@ public:
 
     void accuracyTrialPrecMultiple();
 
+    void saveLoadTrial();
+
 private:
     inputDataManager *inputDataMngr;
     calculator *calc;

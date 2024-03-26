@@ -3,9 +3,9 @@
 #include <fstream>
 #include <vector>
 
-datamanager::datamanager() {}
+dataManager::dataManager() {}
 
-void datamanager::writeDigitsToFile(QString &filename, std::vector<unsigned long> digits)
+void dataManager::writeDigitsToFile(QString &filename, std::vector<unsigned long> digits)
 {
     std::ofstream file;
 
@@ -29,7 +29,7 @@ void datamanager::writeDigitsToFile(QString &filename, std::vector<unsigned long
     Log() << "writeDigitsToFile - Finished writing.";
 }
 
-void datamanager::readDigitsFromFile(QString &fileName, std::vector<unsigned long> &retDigits)
+void dataManager::readDigitsFromFile(QString &fileName, std::vector<unsigned long> &retDigits)
 {
     std::ifstream file;
     file.open(fileName.toStdString(), std::ios::binary | std::ios::in);
@@ -52,13 +52,13 @@ void datamanager::readDigitsFromFile(QString &fileName, std::vector<unsigned lon
 }
 
 template<typename T>
-void datamanager::dataWrite(std::ofstream &fs, T &val)
+void dataManager::dataWrite(std::ofstream &fs, T &val)
 {
     fs.write(reinterpret_cast<char *>(&val), sizeof(val));
 }
 
 template<typename T>
-void datamanager::dataRead(std::ifstream &fr, T &val)
+void dataManager::dataRead(std::ifstream &fr, T &val)
 {
     fr.read(reinterpret_cast<char *>(&val), sizeof(val));
 }
