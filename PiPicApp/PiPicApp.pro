@@ -34,6 +34,7 @@ SOURCES += \
     logger.cpp \
     main.cpp \
     mainWindow.cpp \
+    paletteManager.cpp \
     queueManager.cpp \
     utility.cpp
 
@@ -47,6 +48,7 @@ HEADERS += \
     logStream.h \
     logger.h \
     mainWindow.h \
+    paletteManager.h \
   piPicCommon.h \
     queueManager.h \
   utility.h
