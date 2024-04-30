@@ -6,6 +6,10 @@ class paletteManager
 {
 public:
     paletteManager();
+
+    void createColourWheel();
+
+    void createColourWheel_WithBlackAndWhite();
 };
 
 #endif // PALETTEMANAGER_H
