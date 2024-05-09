@@ -29,6 +29,7 @@ SOURCES += \
     core.cpp \
     dataManager.cpp \
     errorMessageBoxUtil.cpp \
+    imageManager.cpp \
     inputDataManager.cpp \
     logStream.cpp \
     logger.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     core.h \
   dataManager.h \
   errorMessageBoxUtil.h \
+    imageManager.h \
     inputDataManager.h \
     logStream.h \
     logger.h \
