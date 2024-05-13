@@ -7,6 +7,7 @@
 #include <dataManager.h>
 #include <inputDataManager.h>
 #include <logger.h>
+#include <paletteManager.h>
 
 benchmark::benchmark(inputDataManager *nInputDataManager, calculator *nCalc)
     : inputDataMngr(nInputDataManager)
@@ -54,7 +55,12 @@ void benchmark::accuracyTrialInputLength()
     }
 }
 
-void benchmark::test() {}
+void benchmark::test()
+{
+    paletteManager pm;
+
+    pm.createColourWheel_BlackAndWhiteNoRedRight();
+}
 
 void benchmark::accuracyTrialPrec()
 {

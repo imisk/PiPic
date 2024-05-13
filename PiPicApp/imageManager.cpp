@@ -1,12 +1,68 @@
 #include "imageManager.h"
 #include <QColor>
 #include <QDebug>
+#include <QImage>
+#include <logger.h>
+#include <paletteManager.h>
 #include <vector>
 
 imageManager::imageManager() {}
 
-std::vector<QColor> imageManager::assignColoursToDigits(int base,
-                                                        int bins,
+void imageManager::createImageSeries(
+    std::vector<unsigned long> digits, size_t base, size_t bins, int width, int height)
+{
+    paletteManager pm;
+    auto pal = pm.createColourWheel_BlackAndWhiteNoRedRight();
+
+    auto colours = assignColoursToDigits(base, bins, pal);
+
+    int x = 0;
+    int y = 0;
+
+    QString fileNameBase = QString::number(base) + "_" + QString::number(width) + "_"
+                           + QString::number(height) + "_";
+
+    QImage image = QImage(width, height, QImage::Format_RGB32);
+
+    int curImageCount = 1;
+
+    for (size_t i = 0; i < digits.size(); i++) {
+        auto curDigit = digits[i];
+
+        auto color = colours[curDigit];
+
+        image.setPixel(x, y, color.rgb());
+
+        ++x;
+        if (x > width) {
+            x = 0;
+            ++y;
+        }
+
+        if (y > height) {
+            QString filePath = fileNameBase + QString::number(curImageCount) + ".png";
+
+            if (!image.save(filePath, "PNG")) {
+                Log() << "Failed to save the image.";
+            }
+            y = 0;
+
+            curImageCount++;
+            image = QImage(width, height, QImage::Format_RGB32);
+        }
+    }
+
+    if (y > 0 || x > 0) {
+        QString filePath = fileNameBase + QString::number(curImageCount) + ".png";
+
+        if (!image.save(filePath, "PNG")) {
+            Log() << "Failed to save the image.";
+        }
+    }
+}
+
+std::vector<QColor> imageManager::assignColoursToDigits(size_t base,
+                                                        size_t bins,
                                                         std::vector<QColor> palette)
 {
     /*returns a vector of QColor so that each index corresponds to a digit
@@ -24,8 +80,8 @@ std::vector<QColor> imageManager::assignColoursToDigits(int base,
     if (bins > base)
         bins = base;
 
-    if (bins > static_cast<int>(palette.size()))
-        bins = static_cast<int>(palette.size());
+    if (bins > palette.size())
+        bins = palette.size();
 
     qDebug() << "palette.size() = " << palette.size();
 
@@ -36,7 +92,7 @@ std::vector<QColor> imageManager::assignColoursToDigits(int base,
 
     std::vector<QColor> binsPalette;
 
-    for (int curBinPos = 0; curBinPos < bins; curBinPos++) {
+    for (size_t curBinPos = 0; curBinPos < bins; curBinPos++) {
         qDebug() << "--------- curPalettePos = " << curPalettePos;
         size_t cpp = static_cast<size_t>(curPalettePos);
         qDebug() << "cpp = " << cpp;
@@ -58,7 +114,7 @@ std::vector<QColor> imageManager::assignColoursToDigits(int base,
 
     qDebug() << "binsPalette.size = " << binsPalette.size();
 
-    for (int i = 0; i < base; i++) {
+    for (size_t i = 0; i < base; i++) {
         size_t cbp = static_cast<size_t>(curBinPos);
 
         if (cbp > binsPalette.size() - 1)

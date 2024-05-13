@@ -75,7 +75,7 @@ void paletteManager::createColourWheel()
         }
     }
 
-    QString filePath = "rgbyeeey.png";
+    QString filePath = "rgb1.png";
 
     if (!image.save(filePath, "PNG")) {
         qDebug() << "Failed to save the image.";
@@ -179,7 +179,7 @@ void paletteManager::createColourWheel_WithBlackAndWhite()
         }
     }
 
-    QString filePath = "rgbyeeey_bw.png";
+    QString filePath = "rgb2.png";
 
     if (!image.save(filePath, "PNG")) {
         qDebug() << "Failed to save the image.";
@@ -287,7 +287,7 @@ std::vector<QColor> paletteManager::createColourWheel_BlackAndWhiteNoRedRight()
         }
     }
 
-    QString filePath = "rgbyeeey_bwnr.png";
+    QString filePath = "rgb3.png";
 
     if (!image.save(filePath, "PNG")) {
         qDebug() << "Failed to save the image.";

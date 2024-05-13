@@ -43,6 +43,9 @@ void core::trial()
   //bench->saveLoadTrial();
 
   queueManager qm;
+  //qm.executeItem();
 
-  qm.executeItem();
+  //bench->test();
+
+  qm.createImageSeries();
 }

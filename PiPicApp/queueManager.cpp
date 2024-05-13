@@ -4,6 +4,7 @@
 #include "inputDataManager.h"
 #include "logger.h"
 #include <chrono>
+#include <imageManager.h>
 #include <string>
 
 queueManager::queueManager()
@@ -49,4 +50,20 @@ void queueManager::executeItem()
     std::string timeTakenSeconds = std::to_string(duration.count()) + " seconds";
 
     Log() << "executeItem completed. Time taken is " + QString(timeTakenSeconds.c_str());
+}
+
+void queueManager::createImageSeries()
+{
+    QString fileName = "11-2073600.dec";
+    dataManager dm;
+
+    std::vector<unsigned long> digits;
+    dm.readDigitsFromFile(fileName, digits);
+
+    Log() << "Loaded digits.";
+
+    imageManager im;
+    im.createImageSeries(digits, 11, 11, 1920, 1080);
+
+    Log() << "createImageSeries finished";
 }

@@ -8,6 +8,8 @@ public:
     queueManager();
 
     void executeItem();
+
+    void createImageSeries();
 };
 
 #endif // QUEUEMANAGER_H
