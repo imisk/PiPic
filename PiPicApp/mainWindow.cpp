@@ -7,7 +7,9 @@
 #include <iostream>
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+    , mainCore(this)
 {
   ui->setupUi(this);
 
@@ -48,10 +50,15 @@ void MainWindow::on_btn_Test_clicked() {
       HandleGeneralError();
     }
 
-  Log() << "Test button finished \n";
+    Log() << "Test button finished \n";
 }
 
 void MainWindow::appendLogMessage(const QString &message)
 {
   ui->pte_Log->appendPlainText(message);
+}
+
+void MainWindow::updateDigitProgress(int curDigit)
+{
+  ui->lbl_CurDigit->setText(QString::number(curDigit));
 }

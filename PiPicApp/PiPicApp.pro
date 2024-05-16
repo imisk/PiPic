@@ -36,6 +36,7 @@ SOURCES += \
     main.cpp \
     mainWindow.cpp \
     paletteManager.cpp \
+    queueItemWorker.cpp \
     queueManager.cpp \
     utility.cpp
 
@@ -52,6 +53,7 @@ HEADERS += \
     mainWindow.h \
     paletteManager.h \
   piPicCommon.h \
+    queueItemWorker.h \
     queueManager.h \
   utility.h
 

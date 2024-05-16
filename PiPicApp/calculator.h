@@ -1,14 +1,16 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
+#include <QObject>
 #include <QString>
 #include <map>
 #include <vector>
 
-class calculator
+class calculator : public QObject
 {
+    Q_OBJECT
 public:
-    calculator();
+    calculator(QObject *parent = nullptr);
 
     void gmpTrial1();
 
@@ -23,6 +25,10 @@ public:
                                                        int base,
                                                        size_t maxDigits,
                                                        unsigned long int precision);
+
+signals:
+
+    void digitUpdate(int digitCount);
 };
 
 #endif // CALCULATOR_H

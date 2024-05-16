@@ -22,14 +22,17 @@ class MainWindow : public QMainWindow {
 
 
 signals:
-  void logMessageReceived(const QString& message);
- private slots:
-  void on_btn_Test_clicked();
-  void appendLogMessage(const QString& message);
+    void logMessageReceived(const QString& message);
 
- private:
-  Ui::MainWindow* ui;
+public slots:
+    void updateDigitProgress(int curDigit);
+private slots:
+    void on_btn_Test_clicked();
+    void appendLogMessage(const QString& message);
 
-  core mainCore;
+private:
+    Ui::MainWindow* ui;
+
+    core mainCore;
 };
 #endif  // MAINWINDOW_H

@@ -6,7 +6,9 @@
 #include <set>
 #include <vector>
 
-calculator::calculator() {}
+calculator::calculator(QObject* parent)
+    : QObject(parent)
+{}
 
 QString mpzToString(mpz_t n)
 {
@@ -250,6 +252,8 @@ std::vector<unsigned long int> calculator::convertNumberToBase(std::string& inpu
 
     bool finished = false;
 
+    int curDigitCount = 0;
+
     // Convert the number
     while (finished != true) {
         // Multiply the number by the base and separate integer and fractional parts
@@ -261,6 +265,12 @@ std::vector<unsigned long int> calculator::convertNumberToBase(std::string& inpu
         unsigned long int digit = mpf_get_ui(integer_part);
 
         ret.push_back(digit);
+
+        ++curDigitCount;
+
+        if (curDigitCount % 100 == 0) {
+            emit digitUpdate(curDigitCount);
+        }
 
         // Prepare for next iteration
         mpf_set(number, fractional_part);

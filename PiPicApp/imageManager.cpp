@@ -19,7 +19,7 @@ void imageManager::createImageSeries(
     int x = 0;
     int y = 0;
 
-    QString fileNameBase = QString::number(base) + "_" + QString::number(width) + "_"
+    QString fileNameBase = "images/" + QString::number(base) + "_" + QString::number(width) + "_"
                            + QString::number(height) + "_";
 
     QImage image = QImage(width, height, QImage::Format_RGB32);

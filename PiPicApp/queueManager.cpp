@@ -1,55 +1,37 @@
 #include "queueManager.h"
-#include "calculator.h"
+#include <QDebug>
 #include "dataManager.h"
-#include "inputDataManager.h"
 #include "logger.h"
 #include <chrono>
 #include <imageManager.h>
+#include <queueItemWorker.h>
 #include <string>
+queueManager::queueManager(QObject* parent)
+    : QObject(parent)
+{}
 
-queueManager::queueManager()
-{
-    
-    
-}
+queueManager::~queueManager() {}
 
 void queueManager::executeItem()
 {
-    auto start = std::chrono::high_resolution_clock::now();
+    QThread* thread = new QThread;
+    queueItemWorker* worker = new queueItemWorker;
 
-    int base = 11;
-    //size_t targetDigits = 8294400; //4x
-    size_t targetDigits = 2073600;
+    worker->moveToThread(thread);
+    connect(thread, &QThread::started, worker, &queueItemWorker::executeItem);
+    connect(worker, &queueItemWorker::workFinished, thread, &QThread::quit);
+    connect(worker, &queueItemWorker::workFinished, worker, &queueItemWorker::deleteLater);
+    connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 
-    //size_t targetDigits = 2000;
+    auto cv = connect(worker,
+                      &queueItemWorker::digitProgress,
+                      this,
+                      &queueManager::updateDigitProgress,
+                      Qt::DirectConnection);
 
-    calculator calc;
-    inputDataManager idm;
-    dataManager dm;
+    qDebug() << "cv = " << cv;
 
-    int requiredPiDecimals = idm.getRequiredPiDecimalDigits(base, targetDigits);
-
-    std::string pi;
-
-    idm.loadPiFromDisk1Billion(static_cast<size_t>(requiredPiDecimals), pi);
-
-    unsigned long int precision = idm.getRequiredPrecision(base, targetDigits);
-
-    std::vector<unsigned long int> result;
-    result = calc.convertNumberToBase(pi, base, targetDigits, precision);
-
-    auto end = std::chrono::high_resolution_clock::now();
-
-    auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
-
-    QString fn = QString::number(base) + "-" + QString::number(targetDigits) + QString(".dec");
-
-    dm.writeDigitsToFile(fn, result);
-
-    // Convert duration to string
-    std::string timeTakenSeconds = std::to_string(duration.count()) + " seconds";
-
-    Log() << "executeItem completed. Time taken is " + QString(timeTakenSeconds.c_str());
+    thread->start();
 }
 
 void queueManager::createImageSeries()
@@ -63,7 +45,14 @@ void queueManager::createImageSeries()
     Log() << "Loaded digits.";
 
     imageManager im;
-    im.createImageSeries(digits, 11, 11, 1920, 1080);
+    im.createImageSeries(digits, 11, 11, 800, 1080);
 
     Log() << "createImageSeries finished";
 }
+
+void queueManager::updateDigitProgress(int curDigit)
+{
+    emit forwardDigitProgress(curDigit);
+}
+
+void queueManager::setupWorkerAndThread(queueItemWorker* worker, QThread* thread) {}
