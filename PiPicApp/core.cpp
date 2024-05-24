@@ -47,9 +47,11 @@ void core::trial()
 
   //bench->saveLoadTrial();
 
-  qm.executeItem();
-
   //bench->test();
+
+  //----------- main ones:
+
+  qm.executeItem();
 
   //qm.createImageSeries();
 }

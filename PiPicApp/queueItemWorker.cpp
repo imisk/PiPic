@@ -14,14 +14,11 @@ queueItemWorker::queueItemWorker(QObject *parent)
 
 void queueItemWorker::executeItem()
 {
-    auto start = std::chrono::high_resolution_clock::now();
-
     Log() << "Starting calculation";
 
-    int base = 11;
-    size_t targetDigits = 20000000;
-
-    Log() << "Base: " << base << " Target decimal count: " << targetDigits;
+    //int base = 11;
+    //size_t targetDigits = 20000000;
+    size_t targetDigits = 3000000;
 
     calculator calc;
     inputDataManager idm;
@@ -29,27 +26,38 @@ void queueItemWorker::executeItem()
 
     connect(&calc, &calculator::digitUpdate, this, &queueItemWorker::digitCountReceived);
 
-    int requiredPiDecimals = idm.getRequiredPiDecimalDigits(base, targetDigits);
+    for (int base = 12; base < 100; base++) {
+        Log() << "Base: " << base << " Target decimal count: " << targetDigits;
 
-    std::string pi;
+        int requiredPiDecimals = idm.getRequiredPiDecimalDigits(base, targetDigits);
 
-    idm.loadPiFromDisk1Billion(static_cast<size_t>(requiredPiDecimals), pi);
+        std::string pi = "";
 
-    unsigned long int precision = idm.getRequiredPrecision(base, targetDigits);
+        idm.loadPiFromDisk1Billion(static_cast<size_t>(requiredPiDecimals), pi);
 
-    std::vector<unsigned long int> result;
-    result = calc.convertNumberToBase(pi, base, targetDigits, precision);
+        unsigned long int precision = idm.getRequiredPrecision(base, targetDigits);
 
-    auto end = std::chrono::high_resolution_clock::now();
+        std::vector<unsigned long int> result;
 
-    auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+        auto start = std::chrono::high_resolution_clock::now();
 
-    QString fn = QString::number(base) + "-" + QString::number(targetDigits) + QString(".dec");
+        result = calc.convertNumberToBase(pi, base, targetDigits, precision);
 
-    dm.writeDigitsToFile(fn, result);
+        auto end = std::chrono::high_resolution_clock::now();
 
-    // Convert duration to string
-    std::string timeTakenSeconds = std::to_string(duration.count()) + " seconds";
+        auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+
+        QString fn = QString::number(base) + "-" + QString::number(targetDigits) + QString(".dec");
+
+        dm.writeDigitsToFile(fn, result, base);
+
+        // Convert duration to string
+        std::string timeTakenSeconds = std::to_string(duration.count()) + " seconds";
+
+        Log() << "Seconds taken: " << QString(timeTakenSeconds.c_str());
+    }
+
+    //----
 }
 
 void queueItemWorker::digitCountReceived(int v)

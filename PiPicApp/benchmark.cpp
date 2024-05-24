@@ -213,7 +213,7 @@ void benchmark::saveLoadTrial()
 
     QString fn = "test123.dec";
 
-    dm.writeDigitsToFile(fn, vec);
+    dm.writeDigitsToFile(fn, vec, 4432421);
 
     std::vector<unsigned long> v2;
 

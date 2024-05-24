@@ -14,7 +14,7 @@ class dataManager
 public:
     dataManager();
 
-    void writeDigitsToFile(QString &filename, std::vector<unsigned long> digits);
+    void writeDigitsToFile(QString &filename, std::vector<unsigned long> digits, int base);
 
     void readDigitsFromFile(QString &fileName, std::vector<unsigned long> &retDigits);
 
@@ -24,6 +24,10 @@ private:
 
     template<typename T>
     void dataRead(std::ifstream &fr, T &val);
+
+    unsigned char writeHeader(std::ofstream &fs, int base);
+
+    unsigned char readHeader(std::ifstream &fr, int &retBase);
 };
 
 #endif  // DATAMANAGER_H

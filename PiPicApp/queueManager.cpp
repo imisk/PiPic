@@ -36,7 +36,7 @@ void queueManager::executeItem()
 
 void queueManager::createImageSeries()
 {
-    QString fileName = "11-2073600.dec";
+    QString fileName = "25-200000.dec";
     dataManager dm;
 
     std::vector<unsigned long> digits;
@@ -45,7 +45,7 @@ void queueManager::createImageSeries()
     Log() << "Loaded digits.";
 
     imageManager im;
-    im.createImageSeries(digits, 11, 11, 800, 1080);
+    im.createImageSeries(digits, 25, 25, 800, 1080);
 
     Log() << "createImageSeries finished";
 }
