@@ -268,7 +268,7 @@ std::vector<unsigned long int> calculator::convertNumberToBase(std::string& inpu
 
         ++curDigitCount;
 
-        if (curDigitCount % 100 == 0) {
+        if (curDigitCount % 1000 == 0) {
             emit digitUpdate(curDigitCount);
         }
 

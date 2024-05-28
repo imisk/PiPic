@@ -2,10 +2,9 @@
 #include <QDebug>
 #include "dataManager.h"
 #include "logger.h"
-#include <chrono>
 #include <imageManager.h>
 #include <queueItemWorker.h>
-#include <string>
+
 queueManager::queueManager(QObject* parent)
     : QObject(parent)
 {}

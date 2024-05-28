@@ -26,7 +26,7 @@ void queueItemWorker::executeItem()
 
     connect(&calc, &calculator::digitUpdate, this, &queueItemWorker::digitCountReceived);
 
-    for (int base = 12; base < 100; base++) {
+    for (int base = 114; base < 120; base++) {
         Log() << "Base: " << base << " Target decimal count: " << targetDigits;
 
         int requiredPiDecimals = idm.getRequiredPiDecimalDigits(base, targetDigits);
@@ -58,6 +58,8 @@ void queueItemWorker::executeItem()
     }
 
     //----
+
+    emit workFinished();
 }
 
 void queueItemWorker::digitCountReceived(int v)
