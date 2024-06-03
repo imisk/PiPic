@@ -18,6 +18,8 @@ public:
 
     void readDigitsFromFile(QString &fileName, std::vector<unsigned long> &retDigits);
 
+    std::vector<int> findFinishedDigits();
+
 private:
     template<typename T>
     void dataWrite(std::ofstream &fs, T &val);

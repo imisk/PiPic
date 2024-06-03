@@ -1,6 +1,7 @@
 #include "core.h"
 #include "inputDataManager.h"
 #include "logger.h"
+#include <dataManager.h>
 #include <iostream>
 #include <mainWindow.h>
 #include <queueManager.h>
@@ -51,7 +52,10 @@ void core::trial()
 
   //----------- main ones:
 
-  qm.executeItem();
+  //qm.executeItem();
 
   //qm.createImageSeries();
+
+  dataManager dm;
+  dm.findFinishedDigits();
 }

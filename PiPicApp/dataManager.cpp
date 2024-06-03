@@ -3,6 +3,12 @@
 #include <fstream>
 #include <vector>
 
+#include <QCoreApplication>
+#include <QDebug>
+#include <QDir>
+#include <QFileInfo>
+#include <QStringList>
+
 dataManager::dataManager() {}
 
 void dataManager::writeDigitsToFile(QString &filename, std::vector<unsigned long> digits, int base)
@@ -87,6 +93,35 @@ void dataManager::readDigitsFromFile(QString &fileName, std::vector<unsigned lon
     }
 
     file.close();
+}
+
+std::vector<int> dataManager::findFinishedDigits()
+{
+    //oh the horror of the absolute path:
+    QString folderPath
+        = "/home/ivan/dev/pipic/build-PiPic-Desktop_Qt_6_5_2_GCC_64bit-Release/PiPicApp/1/";
+
+    QDir folder(folderPath);
+
+    folder.setFilter(QDir::Files | QDir::NoDotAndDotDot);
+
+    QStringList filters;
+    filters << "*.dec";
+    folder.setNameFilters(filters);
+
+    QStringList decFiles;
+
+    foreach (QFileInfo fileInfo, folder.entryInfoList(filters, QDir::Files)) {
+        decFiles.append(fileInfo.absoluteFilePath());
+
+        qDebug() << "fn = " << fileInfo.fileName();
+    }
+
+    std::vector<int> ret;
+
+    //return decFiles;
+
+    return ret;
 }
 
 unsigned char dataManager::writeHeader(std::ofstream &fs, int base)
