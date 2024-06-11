@@ -97,7 +97,6 @@ void dataManager::readDigitsFromFile(QString &fileName, std::vector<unsigned lon
 
 std::vector<int> dataManager::findFinishedDigits()
 {
-    //oh the horror of the absolute path:
     QString folderPath
         = "/home/ivan/dev/pipic/build-PiPic-Desktop_Qt_6_5_2_GCC_64bit-Release/PiPicApp/1/";
 
@@ -111,15 +110,37 @@ std::vector<int> dataManager::findFinishedDigits()
 
     QStringList decFiles;
 
+    std::vector<int> ret;
+
+    ret.push_back(11);
+
     foreach (QFileInfo fileInfo, folder.entryInfoList(filters, QDir::Files)) {
         decFiles.append(fileInfo.absoluteFilePath());
 
         qDebug() << "fn = " << fileInfo.fileName();
+
+        std::ifstream file;
+        file.open(fileInfo.absoluteFilePath().toStdString(), std::ios::binary | std::ios::in);
+
+        if (!file.is_open()) {
+            Log() << "Error: readDigitsFromFile - could not open the file.";
+            return ret;
+        }
+
+        int base = -1;
+
+        unsigned char digitSize = readHeader(file, base);
+
+        if (digitSize == 250) {
+            //todo : 250 should be constexpr value
+            Log() << "Error : file header corrupted.";
+        } else {
+            qDebug() << "adding base = " << base;
+            ret.push_back(base);
+        }
+
+        file.close();
     }
-
-    std::vector<int> ret;
-
-    //return decFiles;
 
     return ret;
 }
