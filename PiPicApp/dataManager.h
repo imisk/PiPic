@@ -20,6 +20,8 @@ public:
 
     std::vector<int> findFinishedDigits();
 
+    void createABCLogs();
+
 private:
     template<typename T>
     void dataWrite(std::ofstream &fs, T &val);
@@ -30,6 +32,9 @@ private:
     unsigned char writeHeader(std::ofstream &fs, int base);
 
     unsigned char readHeader(std::ifstream &fr, int &retBase);
+
+    int currentlyLoadedAbcLog
+        = 0; //if 0 is loaded, 1 should be saved next, etc. values can be 0,1,2==A,B,C
 };
 
 #endif  // DATAMANAGER_H

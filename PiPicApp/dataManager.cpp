@@ -145,6 +145,58 @@ std::vector<int> dataManager::findFinishedDigits()
     return ret;
 }
 
+void dataManager::createABCLogs()
+{
+    std::ofstream file;
+    auto fin = findFinishedDigits();
+
+    for (int idx = 0; idx <= 2; idx++) {
+        QString filename = "";
+        if (idx == 0) {
+            filename = "finLogA.log";
+        } else if (idx == 1) {
+            filename = "finLogB.log";
+        } else if (idx == 2) {
+            filename = "finLogC.log";
+        }
+
+        file.open(filename.toStdString(), std::ios::binary | std::ios::out);
+
+        if (!file.is_open()) {
+            Log() << "Error: Could not open the file.";
+            return;
+        }
+        size_t finCount = fin.size();
+
+        dataWrite(file, finCount); //count of finished
+
+        //list of finished
+        for (size_t d : fin) {
+            dataWrite(file, d);
+        }
+
+        size_t curCount = 0;
+
+        dataWrite(file, curCount); //0 currently running
+
+        //write current time
+        auto now = std::chrono::system_clock::now();
+        auto now_c = std::chrono::system_clock::to_time_t(now);
+        std::tm now_tm = *std::gmtime(&now_c);
+
+        int yr = now_tm.tm_year + 1900;
+        int mon = now_tm.tm_mon + 1;
+
+        dataWrite(file, yr);
+        dataWrite(file, mon);
+        dataWrite(file, now_tm.tm_mday);
+        dataWrite(file, now_tm.tm_hour);
+        dataWrite(file, now_tm.tm_min);
+
+        file.close();
+    }
+}
+
 unsigned char dataManager::writeHeader(std::ofstream &fs, int base)
 {
     uchar id = 0;

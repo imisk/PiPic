@@ -57,5 +57,6 @@ void core::trial()
   //qm.createImageSeries();
 
   dataManager dm;
-  dm.findFinishedDigits();
+  //dm.findFinishedDigits();
+  dm.createABCLogs();
 }
