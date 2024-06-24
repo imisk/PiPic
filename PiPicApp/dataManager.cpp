@@ -197,6 +197,48 @@ void dataManager::createABCLogs()
     }
 }
 
+void dataManager::loadABCLogs()
+{
+    std::ifstream file;
+    for (int idx = 0; idx <= 2; idx++) {
+        QString filename = "";
+        if (idx == 0) {
+            filename = "finLogA.log";
+        } else if (idx == 1) {
+            filename = "finLogB.log";
+        } else if (idx == 2) {
+            filename = "finLogC.log";
+        }
+
+        file.open(filename.toStdString(), std::ios::binary | std::ios::in);
+
+        if (!file.is_open()) {
+            Log() << "Error: Could not open the file.";
+            return;
+        }
+
+        size_t finCount;
+        dataRead(file, finCount);
+
+        std::vector<int> fin(finCount);
+        for (int &d : fin) {
+            dataRead(file, d);
+        }
+
+        size_t curCount;
+        dataRead(file, curCount);
+
+        int yr, mon, mday, hour, min;
+        dataRead(file, yr);
+        dataRead(file, mon);
+        dataRead(file, mday);
+        dataRead(file, hour);
+        dataRead(file, min);
+
+        file.close();
+    }
+}
+
 unsigned char dataManager::writeHeader(std::ofstream &fs, int base)
 {
     uchar id = 0;
