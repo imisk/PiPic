@@ -22,6 +22,8 @@ public:
 
     void createABCLogs();
 
+    void loadABCLogs();
+
 private:
     template<typename T>
     void dataWrite(std::ofstream &fs, T &val);

@@ -171,7 +171,7 @@ void dataManager::createABCLogs()
         dataWrite(file, finCount); //count of finished
 
         //list of finished
-        for (size_t d : fin) {
+        for (int d : fin) {
             dataWrite(file, d);
         }
 
@@ -199,8 +199,18 @@ void dataManager::createABCLogs()
 
 void dataManager::loadABCLogs()
 {
+    std::tm currentMaxDate = {};
+    currentMaxDate.tm_year = 0;
+    currentMaxDate.tm_mon = 0;
+    currentMaxDate.tm_mday = 1;
+
+    std::vector<int> finished;
+    std::vector<int> running;
+
     std::ifstream file;
     for (int idx = 0; idx <= 2; idx++) {
+        qDebug() << "idx = " << idx;
+
         QString filename = "";
         if (idx == 0) {
             filename = "finLogA.log";
@@ -226,7 +236,16 @@ void dataManager::loadABCLogs()
         }
 
         size_t curCount;
+
         dataRead(file, curCount);
+
+        std::vector<int> curRunning(curCount);
+
+        if (curCount > 0) {
+            for (int &d : curRunning) {
+                dataRead(file, d);
+            }
+        }
 
         int yr, mon, mday, hour, min;
         dataRead(file, yr);
@@ -234,6 +253,24 @@ void dataManager::loadABCLogs()
         dataRead(file, mday);
         dataRead(file, hour);
         dataRead(file, min);
+
+        std::tm readDate = {};
+        readDate.tm_year = yr - 1900;
+        readDate.tm_mon = mon - 1;
+        readDate.tm_mday = mday;
+        readDate.tm_hour = hour;
+        readDate.tm_min = min;
+        readDate.tm_sec = 0;
+
+        time_t readTime = std::mktime(&readDate);
+        time_t currentTime = std::mktime(&currentMaxDate);
+
+        if (readTime > currentTime) {
+            currentMaxDate = readDate;
+
+            finished = fin;
+            running = curRunning;
+        }
 
         file.close();
     }

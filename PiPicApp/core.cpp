@@ -58,5 +58,6 @@ void core::trial()
 
   dataManager dm;
   //dm.findFinishedDigits();
-  dm.createABCLogs();
+  //dm.createABCLogs();
+  dm.loadABCLogs();
 }
