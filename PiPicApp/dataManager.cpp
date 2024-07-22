@@ -150,66 +150,27 @@ void dataManager::createABCLogs()
     std::ofstream file;
     auto fin = findFinishedDigits();
 
-    for (int idx = 0; idx <= 2; idx++) {
-        QString filename = "";
-        if (idx == 0) {
-            filename = "finLogA.log";
-        } else if (idx == 1) {
-            filename = "finLogB.log";
-        } else if (idx == 2) {
-            filename = "finLogC.log";
-        }
+    std::vector<int> curProc;
 
-        file.open(filename.toStdString(), std::ios::binary | std::ios::out);
+    currentlyLoadedAbcLog = 0;
+    saveABCLogs(fin, curProc);
 
-        if (!file.is_open()) {
-            Log() << "Error: Could not open the file.";
-            return;
-        }
-        size_t finCount = fin.size();
+    currentlyLoadedAbcLog = 1;
+    saveABCLogs(fin, curProc);
 
-        dataWrite(file, finCount); //count of finished
-
-        //list of finished
-        for (int d : fin) {
-            dataWrite(file, d);
-        }
-
-        size_t curCount = 0;
-
-        dataWrite(file, curCount); //0 currently running
-
-        //write current time
-        auto now = std::chrono::system_clock::now();
-        auto now_c = std::chrono::system_clock::to_time_t(now);
-        std::tm now_tm = *std::gmtime(&now_c);
-
-        int yr = now_tm.tm_year + 1900;
-        int mon = now_tm.tm_mon + 1;
-
-        dataWrite(file, yr);
-        dataWrite(file, mon);
-        dataWrite(file, now_tm.tm_mday);
-        dataWrite(file, now_tm.tm_hour);
-        dataWrite(file, now_tm.tm_min);
-
-        file.close();
-    }
+    currentlyLoadedAbcLog = 2;
+    saveABCLogs(fin, curProc);
 }
 
-void dataManager::loadABCLogs()
+void dataManager::loadABCLogs(std::vector<int> &retFinished, std::vector<int> &retRunning)
 {
     std::tm currentMaxDate = {};
     currentMaxDate.tm_year = 0;
     currentMaxDate.tm_mon = 0;
     currentMaxDate.tm_mday = 1;
 
-    std::vector<int> finished;
-    std::vector<int> running;
-
     std::ifstream file;
     for (int idx = 0; idx <= 2; idx++) {
-        qDebug() << "idx = " << idx;
 
         QString filename = "";
         if (idx == 0) {
@@ -223,7 +184,7 @@ void dataManager::loadABCLogs()
         file.open(filename.toStdString(), std::ios::binary | std::ios::in);
 
         if (!file.is_open()) {
-            Log() << "Error: Could not open the file.";
+            Log() << "Error: Could not open the ABC log file: " << filename;
             return;
         }
 
@@ -268,12 +229,70 @@ void dataManager::loadABCLogs()
         if (readTime > currentTime) {
             currentMaxDate = readDate;
 
-            finished = fin;
-            running = curRunning;
+            retFinished = fin;
+            retRunning = curRunning;
+
+            currentlyLoadedAbcLog = idx;
         }
 
         file.close();
     }
+}
+
+void dataManager::saveABCLogs(std::vector<int> &retFinished, std::vector<int> &retRunning)
+{
+    std::ofstream file;
+
+    QString filename = "";
+
+    if (currentlyLoadedAbcLog == 0) {
+        filename = "finLogA.log";
+    } else if (currentlyLoadedAbcLog == 1) {
+        filename = "finLogB.log";
+    } else if (currentlyLoadedAbcLog == 2) {
+        filename = "finLogC.log";
+    }
+
+    file.open(filename.toStdString(), std::ios::binary | std::ios::out);
+
+    if (!file.is_open()) {
+        Log() << "Error: Could not open the file.";
+        return;
+    }
+    size_t finCount = retFinished.size();
+
+    dataWrite(file, finCount); //count of finished
+
+    //list of finished
+    for (int d : retFinished) {
+        dataWrite(file, d);
+    }
+
+    size_t curCount = retRunning.size();
+
+    dataWrite(file, curCount);
+
+    if (curCount > 0) {
+        for (int d : retRunning) {
+            dataWrite(file, d);
+        }
+    }
+
+    //write current time
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    std::tm now_tm = *std::gmtime(&now_c);
+
+    int yr = now_tm.tm_year + 1900;
+    int mon = now_tm.tm_mon + 1;
+
+    dataWrite(file, yr);
+    dataWrite(file, mon);
+    dataWrite(file, now_tm.tm_mday);
+    dataWrite(file, now_tm.tm_hour);
+    dataWrite(file, now_tm.tm_min);
+
+    file.close();
 }
 
 unsigned char dataManager::writeHeader(std::ofstream &fs, int base)

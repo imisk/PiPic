@@ -59,5 +59,11 @@ void core::trial()
   dataManager dm;
   //dm.findFinishedDigits();
   //dm.createABCLogs();
-  dm.loadABCLogs();
+
+  std::vector<int> f;
+  std::vector<int> r;
+
+  dm.loadABCLogs(f, r);
+
+  qDebug() << "fin size = " << f.size();
 }

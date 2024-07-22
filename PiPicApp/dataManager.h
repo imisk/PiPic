@@ -22,7 +22,9 @@ public:
 
     void createABCLogs();
 
-    void loadABCLogs();
+    void loadABCLogs(std::vector<int> &retFinished, std::vector<int> &retRunning);
+
+    void saveABCLogs(std::vector<int> &retFinished, std::vector<int> &retRunning);
 
 private:
     template<typename T>
