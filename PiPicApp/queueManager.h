@@ -12,7 +12,7 @@ public:
     explicit queueManager(QObject* parent = nullptr);
 
     ~queueManager();
-    void executeItem();
+    void executeItem(dataManager* dm);
 
     void createImageSeries();
 

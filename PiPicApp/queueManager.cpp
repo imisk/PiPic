@@ -11,10 +11,10 @@ queueManager::queueManager(QObject* parent)
 
 queueManager::~queueManager() {}
 
-void queueManager::executeItem()
+void queueManager::executeItem(dataManager* dm)
 {
     QThread* thread = new QThread;
-    queueItemWorker* worker = new queueItemWorker;
+    queueItemWorker* worker = new queueItemWorker(dm);
 
     worker->moveToThread(thread);
     connect(thread, &QThread::started, worker, &queueItemWorker::executeItem);

@@ -2,7 +2,7 @@
 #include "inputDataManager.h"
 #include "logger.h"
 #include <dataManager.h>
-#include <iostream>
+
 #include <mainWindow.h>
 #include <queueManager.h>
 
@@ -14,6 +14,8 @@ core::core(MainWindow* nMw)
     inputDataMngr = std::make_unique<inputDataManager>();
 
     bench = std::make_unique<benchmark>(inputDataMngr.get(), calc.get());
+
+    dataMngr = std::make_unique<dataManager>();
 
     QAction::connect(&qm, &queueManager::forwardDigitProgress, mw, &MainWindow::updateDigitProgress);
 }
@@ -52,7 +54,7 @@ void core::trial()
 
   //----------- main ones:
 
-  //qm.executeItem();
+  qm.executeItem(dataMngr.get());
 
   //qm.createImageSeries();
 

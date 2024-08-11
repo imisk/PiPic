@@ -2,12 +2,13 @@
 #define QUEUEITEMWORKER_H
 
 #include <QObject>
+#include <dataManager.h>
 
 class queueItemWorker : public QObject
 {
     Q_OBJECT
 public:
-    explicit queueItemWorker(QObject *parent = nullptr);
+    explicit queueItemWorker(dataManager* dm, QObject* parent = nullptr);
 
 public slots:
 
@@ -19,6 +20,9 @@ signals:
     void workFinished();
 
     void digitProgress(int);
+
+private:
+    dataManager* dataMngr;
 };
 
 #endif // QUEUEITEMWORKER_H

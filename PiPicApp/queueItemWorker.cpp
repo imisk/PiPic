@@ -6,8 +6,9 @@
 #include <inputDataManager.h>
 #include <logger.h>
 
-queueItemWorker::queueItemWorker(QObject *parent)
+queueItemWorker::queueItemWorker(dataManager* dm, QObject* parent)
     : QObject{parent}
+    , dataMngr(dm)
 {
     
 }
@@ -22,7 +23,6 @@ void queueItemWorker::executeItem()
 
     calculator calc;
     inputDataManager idm;
-    dataManager dm;
 
     connect(&calc, &calculator::digitUpdate, this, &queueItemWorker::digitCountReceived);
 
@@ -49,7 +49,7 @@ void queueItemWorker::executeItem()
 
         QString fn = QString::number(base) + "-" + QString::number(targetDigits) + QString(".dec");
 
-        dm.writeDigitsToFile(fn, result, base);
+        dataMngr->writeDigitsToFile(fn, result, base);
 
         // Convert duration to string
         std::string timeTakenSeconds = std::to_string(duration.count()) + " seconds";
