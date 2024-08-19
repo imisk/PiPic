@@ -1,6 +1,7 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
+#include <QReadWriteLock>
 #include <QString>
 #include <vector>
 
@@ -39,6 +40,8 @@ private:
 
     int currentlyLoadedAbcLog
         = 0; //if 0 is loaded, 1 should be saved next, etc. values can be 0,1,2==A,B,C
+
+    QReadWriteLock readWriteLock;
 };
 
 #endif  // DATAMANAGER_H

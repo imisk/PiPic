@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QReadWriteLock>
 #include <QStringList>
 
 dataManager::dataManager() {}
@@ -170,8 +171,9 @@ void dataManager::loadABCLogs(std::vector<int> &retFinished, std::vector<int> &r
     currentMaxDate.tm_mday = 1;
 
     std::ifstream file;
-    for (int idx = 0; idx <= 2; idx++) {
+    readWriteLock.lockForRead();
 
+    for (int idx = 0; idx <= 2; idx++) {
         QString filename = "";
         if (idx == 0) {
             filename = "finLogA.log";
@@ -237,6 +239,7 @@ void dataManager::loadABCLogs(std::vector<int> &retFinished, std::vector<int> &r
 
         file.close();
     }
+    readWriteLock.unlock();
 }
 
 void dataManager::saveABCLogs(std::vector<int> &retFinished, std::vector<int> &retRunning)
@@ -252,6 +255,8 @@ void dataManager::saveABCLogs(std::vector<int> &retFinished, std::vector<int> &r
     } else if (currentlyLoadedAbcLog == 2) {
         filename = "finLogC.log";
     }
+
+    readWriteLock.lockForWrite();
 
     file.open(filename.toStdString(), std::ios::binary | std::ios::out);
 
@@ -293,6 +298,8 @@ void dataManager::saveABCLogs(std::vector<int> &retFinished, std::vector<int> &r
     dataWrite(file, now_tm.tm_min);
 
     file.close();
+
+    readWriteLock.unlock();
 }
 
 unsigned char dataManager::writeHeader(std::ofstream &fs, int base)
