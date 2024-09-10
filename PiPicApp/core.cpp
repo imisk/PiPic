@@ -54,7 +54,7 @@ void core::trial()
 
   //----------- main ones:
 
-  qm.executeItem(dataMngr.get());
+  //qm.executeItem(dataMngr.get());
 
   //qm.createImageSeries();
 
@@ -67,5 +67,5 @@ void core::trial()
 
   dm.loadABCLogs(f, r);
 
-  qDebug() << "fin size = " << f.size();
+  Log() << "fin size = " << f.size();
 }

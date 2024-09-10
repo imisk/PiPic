@@ -10,7 +10,12 @@
 #include <QReadWriteLock>
 #include <QStringList>
 
-dataManager::dataManager() {}
+dataManager::dataManager()
+{
+    settings.minBase = 300;
+    settings.maxBase = 100000;
+    settings.threadCount = 4;
+}
 
 void dataManager::writeDigitsToFile(QString &filename, std::vector<unsigned long> digits, int base)
 {
@@ -300,6 +305,25 @@ void dataManager::saveABCLogs(std::vector<int> &retFinished, std::vector<int> &r
     file.close();
 
     readWriteLock.unlock();
+}
+
+void dataManager::saveSettings()
+{
+    std::ofstream file;
+    QString filename = "settings.dat";
+
+    file.open(filename.toStdString(), std::ios::binary | std::ios::out);
+
+    if (!file.is_open()) {
+        Log() << "Error: Could not open the settings file for saving.";
+        return;
+    }
+
+    dataWrite(file, settings.minBase);
+    dataWrite(file, settings.maxBase);
+    dataWrite(file, settings.threadCount);
+
+    file.close();
 }
 
 unsigned char dataManager::writeHeader(std::ofstream &fs, int base)
