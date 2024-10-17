@@ -36,6 +36,8 @@ public:
 
     void saveSettings();
 
+    void loadSettings();
+
 private:
     template<typename T>
     void dataWrite(std::ofstream &fs, T &val);

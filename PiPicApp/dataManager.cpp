@@ -88,6 +88,8 @@ void dataManager::readDigitsFromFile(QString &fileName, std::vector<unsigned lon
             dataRead(file, val);
             retDigits.push_back(static_cast<unsigned short int>(val));
         } else if (digitSize == 2) {
+            inline void dataManager::loadSettings() {}
+
             unsigned int val;
             dataRead(file, val);
             retDigits.push_back(static_cast<unsigned int>(val));
@@ -316,12 +318,34 @@ void dataManager::saveSettings()
 
     if (!file.is_open()) {
         Log() << "Error: Could not open the settings file for saving.";
+        file.close();
         return;
     }
 
     dataWrite(file, settings.minBase);
     dataWrite(file, settings.maxBase);
     dataWrite(file, settings.threadCount);
+
+    file.close();
+}
+
+void dataManager::loadSettings()
+{
+    std::ifstream file;
+
+    QString fileName = "settings.dat";
+
+    file.open(fileName.toStdString(), std::ios::binary | std::ios::in);
+
+    if (!file.is_open()) {
+        Log() << "Error: loadSettings - could not open the file.";
+        file.close();
+        return;
+    }
+
+    dataRead(file, settings.minBase);
+    dataRead(file, settings.maxBase);
+    dataRead(file, settings.threadCount);
 
     file.close();
 }
