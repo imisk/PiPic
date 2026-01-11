@@ -19,7 +19,8 @@ void queueItemWorker::executeItem()
 
     //int base = 11;
     //size_t targetDigits = 20000000;
-    size_t targetDigits = 3000000;
+    //size_t targetDigits = 3000000;
+    size_t targetDigits = 3000;
 
     calculator calc;
     inputDataManager idm;
@@ -49,7 +50,8 @@ void queueItemWorker::executeItem()
 
         QString fn = QString::number(base) + "-" + QString::number(targetDigits) + QString(".dec");
 
-        dataMngr->writeDigitsToFile(fn, result, base);
+        Log() << "DEBUG_ write digits to file commented out -------------";
+        //dataMngr->writeDigitsToFile(fn, result, base);
 
         // Convert duration to string
         std::string timeTakenSeconds = std::to_string(duration.count()) + " seconds";

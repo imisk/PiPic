@@ -11,8 +11,13 @@ queueManager::queueManager(QObject* parent)
 
 queueManager::~queueManager() {}
 
-void queueManager::executeItem(dataManager* dm)
+void queueManager::executeItem()
 {
+    if (dm == nullptr) {
+        Log() << "Error : executeItem : dataManager is null.";
+        return;
+    }
+
     QThread* thread = new QThread;
     queueItemWorker* worker = new queueItemWorker(dm);
 
@@ -20,6 +25,7 @@ void queueManager::executeItem(dataManager* dm)
     connect(thread, &QThread::started, worker, &queueItemWorker::executeItem);
     connect(worker, &queueItemWorker::workFinished, thread, &QThread::quit);
     connect(worker, &queueItemWorker::workFinished, worker, &queueItemWorker::deleteLater);
+    connect(worker, &queueItemWorker::workFinished, this, &queueManager::oneItemFinished);
     connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 
     auto cv = connect(worker,
@@ -31,6 +37,11 @@ void queueManager::executeItem(dataManager* dm)
     qDebug() << "cv = " << cv;
 
     thread->start();
+}
+
+void queueManager::initializeQueue(dataManager* ndm)
+{
+    dm = ndm;
 }
 
 void queueManager::createImageSeries()
@@ -52,6 +63,11 @@ void queueManager::createImageSeries()
 void queueManager::updateDigitProgress(int curDigit)
 {
     emit forwardDigitProgress(curDigit);
+}
+
+void queueManager::oneItemFinished()
+{
+    Log() << "oneItemFinished";
 }
 
 void queueManager::setupWorkerAndThread(queueItemWorker* worker, QThread* thread) {}

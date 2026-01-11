@@ -88,8 +88,6 @@ void dataManager::readDigitsFromFile(QString &fileName, std::vector<unsigned lon
             dataRead(file, val);
             retDigits.push_back(static_cast<unsigned short int>(val));
         } else if (digitSize == 2) {
-            inline void dataManager::loadSettings() {}
-
             unsigned int val;
             dataRead(file, val);
             retDigits.push_back(static_cast<unsigned int>(val));
@@ -347,6 +345,9 @@ void dataManager::loadSettings()
     dataRead(file, settings.maxBase);
     dataRead(file, settings.threadCount);
 
+    Log() << "Settings loaded. minBase = " << settings.minBase << " maxBase = " << settings.maxBase
+          << " threads = " << settings.threadCount;
+
     file.close();
 }
 
@@ -374,6 +375,9 @@ unsigned char dataManager::writeHeader(std::ofstream &fs, int base)
     dataWrite(fs, n);
 
     dataWrite(fs, id);
+
+    //todo: we are writing int, and yet mode 2 is comparing unsigned int. this should be checked! int < unsigned int
+    //  this todo also applies to readHeader
 
     dataWrite(fs, base);
 

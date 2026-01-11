@@ -54,18 +54,11 @@ void core::trial()
 
   //----------- main ones:
 
-  //qm.executeItem(dataMngr.get());
+  qm.initializeQueue(dataMngr.get());
 
   //qm.createImageSeries();
 
-  dataManager dm;
+  //dataManager dm;
   //dm.findFinishedDigits();
   //dm.createABCLogs();
-
-  std::vector<int> f;
-  std::vector<int> r;
-
-  dm.loadABCLogs(f, r);
-
-  Log() << "fin size = " << f.size();
 }

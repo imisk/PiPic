@@ -12,7 +12,9 @@ public:
     explicit queueManager(QObject* parent = nullptr);
 
     ~queueManager();
-    void executeItem(dataManager* dm);
+    void executeItem();
+
+    void initializeQueue(dataManager* ndm);
 
     void createImageSeries();
 
@@ -24,8 +26,12 @@ public slots:
 
     void updateDigitProgress(int curDigit);
 
+    void oneItemFinished();
+
 private:
     void setupWorkerAndThread(queueItemWorker* worker, QThread* thread);
+
+    dataManager* dm{nullptr};
 };
 
 #endif // QUEUEMANAGER_H
